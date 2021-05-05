@@ -14,6 +14,9 @@ class Evento{
 
 public:
     Evento();
+    ~Evento(){}
+    void registrarEvento();
+    void mostrarEvento();
 };
 
 #endif // EVENTO_H
