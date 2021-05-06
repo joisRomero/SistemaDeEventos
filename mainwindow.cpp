@@ -1,6 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "evento.h"
+#include "listaeventos.h"
 #include <QDebug>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -45,4 +48,34 @@ void MainWindow::on_btnVerMasAlquilar_clicked()
     if ( i > -1){
         qDebug()<< "lo he seleccionado";
     }
+}
+
+void MainWindow::on_btnGuardarAgregar_clicked()
+{
+    //obtengo los datos de la interfas agregar
+    QString tipo = ui->tipoEventoAgregar->itemText(ui->tipoEventoAgregar->currentIndex());
+    QString nombre = ui->nombreAgregar->text();
+    QString direccion = ui->direccionAgregar->text();
+    int aforo = ui->aforoAgregar->text().toInt();
+    float area = ui->areaAgregar->text().toFloat();
+    int piso = ui->pisoAgregar->text().toInt();
+    float costo = ui->precioAgregar->text().toInt();
+
+    //compruebo si todos los campos estan llenos
+    if (ui->nombreAgregar->text() != "" && ui->direccionAgregar->text() != ""
+        && ui->aforoAgregar->text() != "" && ui->areaAgregar->text() != ""
+        && ui->pisoAgregar->text() != "" && ui->precioAgregar->text() != ""){
+        Evento eventoAux(tipo, nombre, direccion, aforo, area, piso, costo);
+        listaEvento.insertaListaEventos(eventoAux);
+    } else {
+        QMessageBox::critical(this, "ERROR", "Llene todos los campos");
+    }
+
+    listaEvento.mostrarListaEventos();
+    ui->nombreAgregar->clear();
+    ui->direccionAgregar->clear();
+    ui->aforoAgregar->clear();
+    ui->areaAgregar->clear();
+    ui->pisoAgregar->clear();
+    ui->precioAgregar->clear();
 }

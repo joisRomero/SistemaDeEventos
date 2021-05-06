@@ -11,11 +11,12 @@ class Evento{
     QString direccion;
     int aforo;
     float costo;
+    int piso;
 
 public:
     Evento();
+    Evento(QString, QString, QString, int, float, int, float);
     ~Evento(){}
-    void registrarEvento();
     void mostrarEvento();
 };
 

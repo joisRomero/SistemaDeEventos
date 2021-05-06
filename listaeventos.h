@@ -15,7 +15,6 @@ public:
     NodoEvento* getUltimo();
 
     void insertaListaEventos(const Evento&);
-    void leerListaEventos();
     void mostrarListaEventos();
 };
 

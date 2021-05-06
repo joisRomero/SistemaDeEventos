@@ -1,4 +1,5 @@
 #include "listaeventos.h"
+#include <QDebug>
 
 ListaEventos::ListaEventos(){
     cabecera = NULL;
@@ -40,20 +41,13 @@ void ListaEventos::insertaListaEventos(const Evento& _evento){
     total++;
 }
 
-void ListaEventos::leerListaEventos(){
-    Evento evento;
-    /*
-        la función leerListaEventos
-
-    */
-}
-
 void ListaEventos::mostrarListaEventos(){
     NodoEvento *aux = cabecera;
 
     while(aux != NULL){
-        /*
-            función mostrar lista eventos
-        */
+        qDebug()<< "--------";
+        aux->getEvento().mostrarEvento();
+        qDebug()<< "--------";
+        aux =  aux->getSiguiente();
     }
 }
