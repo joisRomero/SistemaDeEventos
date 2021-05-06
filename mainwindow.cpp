@@ -58,7 +58,7 @@ void MainWindow::on_btnVerMasAlquilar_clicked()
 {
     int i = ui->tablaAlquilar->currentRow();
 
-    if ( i > -1){
+    if ( i == -1){
         qDebug()<< "lo he seleccionado";
     }
 }
@@ -91,4 +91,19 @@ void MainWindow::on_btnGuardarAgregar_clicked()
     ui->areaAgregar->clear();
     ui->pisoAgregar->clear();
     ui->precioAgregar->clear();
+}
+
+void MainWindow::on_btnBuscarAlquilar_clicked()
+{
+    //Obtengo los datos de la interfaz Alquilar
+    QString tipo = ui->tipoEventoAlquilar->itemText(ui->tipoEventoActualizar->currentIndex());
+    QDate fecha = ui->fechaAlquilar->date();
+    QTime horaInicio = ui->horaAlquilar->time();
+    int horas = ui->tiempoAlquilar->text().toInt();
+    QTime horaFin = horaInicio.addSecs(horas*3600);
+
+    //Compruebo si todos los campos estan llenos
+    if (horas < 0){
+        QMessageBox::warning(this, "", "Llene todos los campos");
+    }
 }
