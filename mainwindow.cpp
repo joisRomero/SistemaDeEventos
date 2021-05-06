@@ -33,6 +33,19 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tablaEliminar->setColumnCount(1);
     ui->tablaEliminar->setHorizontalHeaderLabels(titulosEliminar);
     ui->tablaEliminar->setColumnWidth(0, 580);
+
+    //items
+    QStringList items;
+    items << "Auditorio" << "Cancha deportiva" << "Centro de esparcimiento"
+          << "Estadio" << "Laboratorio" << "Sala de conferencia" << "Sala de cómputo"
+          << "Salón de baile" << "Salón multimedia";
+
+    ui->tipoEventoAgregar->addItems(items);
+    ui->tipoEventoAlquilar->addItems(items);
+    ui->tipoEventoActualizar->addItems(items);
+    ui->tipoEventoEliminar->addItems(items);
+    ui->tipoEventoActualizarBuscar->addItems(items);
+
 }
 
 MainWindow::~MainWindow()

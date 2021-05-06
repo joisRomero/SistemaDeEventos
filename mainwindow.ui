@@ -314,21 +314,6 @@
               <height>0</height>
              </size>
             </property>
-            <item>
-             <property name="text">
-              <string>Canchas</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Laboratorio</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Centro de esparcimiento</string>
-             </property>
-            </item>
            </widget>
           </item>
           <item>
