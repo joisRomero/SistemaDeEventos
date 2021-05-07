@@ -143,3 +143,28 @@ void MainWindow::on_btnEliminar_clicked()
     }
 
 }
+
+
+void MainWindow::on_btnBuscarActualizar_clicked()
+{
+    //Borra todas las filas
+    int cant = ui->tablaActualizar->rowCount();
+    for (int y = cant - 1; y >= 0; y--) {
+        ui->tablaActualizar->removeRow(y);
+    }
+    QString tipo2 = ui->tipoEventoActualizar->itemText(ui->tipoEventoActualizar->currentIndex());
+        QStringList nombresAux2 = listaEvento.buscarPorTipo(tipo2);
+
+        if (nombresAux2.length() > 0){
+            for (int i = 0; i < nombresAux2.length(); i++) {
+                //Creo una fila al final de la tabla
+                ui->tablaActualizar->insertRow(ui->tablaActualizar->rowCount());
+                //inserto elementos en la fila creada
+                ui->tablaActualizar->setItem(ui->tablaActualizar->rowCount() - 1, 0,
+                                           new QTableWidgetItem(nombresAux2[i]));
+
+            }
+        } else {
+            QMessageBox::information(this, "", "No hay eventos de ese tipo registrados");
+    }
+}

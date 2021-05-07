@@ -25,6 +25,8 @@ private slots:
 
     void on_btnEliminar_clicked();
 
+    void on_btnBuscarActualizar_clicked();
+
 private:
     Ui::MainWindow *ui;
     ListaEventos listaEvento;

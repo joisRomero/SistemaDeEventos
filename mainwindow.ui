@@ -27,7 +27,7 @@
     <item>
      <widget class="QTabWidget" name="ventanas">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="ventanaAlquilar">
        <attribute name="title">
@@ -649,6 +649,13 @@
              </size>
             </property>
            </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnBuscarActualizar">
+            <property name="text">
+             <string>BUSCAR</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
