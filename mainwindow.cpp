@@ -95,17 +95,20 @@ void MainWindow::on_btnGuardarAgregar_clicked()
 
 void MainWindow::on_btnBuscarEliminar_clicked()
 {
-    ui->tablaEliminar->clearContents();
-    for (int y = 0; y < ui->tablaEliminar->rowCount(); y++) {
+    //Borrar todas las filas
+    int cant = ui->tablaEliminar->rowCount();
+    for (int y = cant - 1; y >= 0; y--) {
         ui->tablaEliminar->removeRow(y);
     }
 
-    QString tipoAux = ui->tipoEventoEliminar->itemText(ui->tipoEventoEliminar->currentIndex());
-    QStringList nombresAux = listaEvento.buscarPorTipo(tipoAux);
+    QString tipo = ui->tipoEventoEliminar->itemText(ui->tipoEventoEliminar->currentIndex());
+    QStringList nombresAux = listaEvento.buscarPorTipo(tipo);
 
     if (nombresAux.length() > 0){
         for (int i = 0; i < nombresAux.length(); i++) {
+            //Creo una fila al final de la tabla
             ui->tablaEliminar->insertRow(ui->tablaEliminar->rowCount());
+            //inserto elementos en la fila creada
             ui->tablaEliminar->setItem(ui->tablaEliminar->rowCount() - 1, 0,
                                        new QTableWidgetItem(nombresAux[i]));
         }
@@ -116,10 +119,14 @@ void MainWindow::on_btnBuscarEliminar_clicked()
 
 void MainWindow::on_btnEliminar_clicked()
 {
-    int i = ui->tablaEliminar->currentRow();
+    //Obetengo un valor numero que me indica si una fila esta selecionada
+    //Devuelve -1 si no hay nada seleccionado
+    int seleccion = ui->tablaEliminar->currentRow();
 
-    if ( i > -1){
+    //Verifico si una fila esta seleccionada
+    if ( seleccion > -1){
         if (QMessageBox::question(this, "", "¿Estás seguro de eliminar?") == QMessageBox::Yes){
+            //obtengo el nombre de la fila ha eliminar
             QString nombre = ui->tablaEliminar->currentItem()->text();
             listaEvento.eliminarPorNombre(nombre);
             QMessageBox::information(this, "", "Eliminado con éxito");
@@ -129,8 +136,9 @@ void MainWindow::on_btnEliminar_clicked()
         QMessageBox::warning(this, "", "Seleccione un evento");
     }
 
-    ui->tablaEliminar->clearContents();
-    for (int y = 0; y < ui->tablaEliminar->rowCount(); y++) {
+    //Borra todas las filas
+    int cant = ui->tablaEliminar->rowCount();
+    for (int y = cant - 1; y >= 0; y--) {
         ui->tablaEliminar->removeRow(y);
     }
 
