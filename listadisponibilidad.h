@@ -14,9 +14,6 @@ public:
 
     void crece();
     void inserta(Disponibilidad *D);
-
-    void leerListaDisponibilidad();
-    void mostrarListaDisponibilidad();
 };
 
 #endif // LISTADISPONIBILIDAD_H

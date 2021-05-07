@@ -46,6 +46,11 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tipoEventoEliminar->addItems(items);
     ui->tipoEventoActualizarBuscar->addItems(items);
 
+    QDate fechaActual = QDate().currentDate();
+    QTime horaActual = QTime().currentTime();
+    ui->fechaAlquilar->setDate(fechaActual);
+    ui->horaAlquilar->setTime(horaActual);
+
 }
 
 MainWindow::~MainWindow()
@@ -101,6 +106,10 @@ void MainWindow::on_btnBuscarAlquilar_clicked()
     QTime horaInicio = ui->horaAlquilar->time();
     int horas = ui->tiempoAlquilar->text().toInt();
     QTime horaFin = horaInicio.addSecs(horas*3600);
+
+    qDebug() << fecha;
+    qDebug() << horaInicio;
+    qDebug() << horaFin;
 
     //Compruebo si todos los campos estan llenos
     if (horas < 0){

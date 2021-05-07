@@ -28,7 +28,3 @@ void ListaDisponibilidad::inserta(Disponibilidad *D){
     datos[N] = D;
     N++;
 }
-
-void ListaDisponibilidad::leerListaDisponibilidad(){
-    qDebug()<<"s";
-}
