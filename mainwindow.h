@@ -21,6 +21,10 @@ private slots:
 
     void on_btnGuardarAgregar_clicked();
 
+    void on_btnBuscarEliminar_clicked();
+
+    void on_btnEliminar_clicked();
+
 private:
     Ui::MainWindow *ui;
     ListaEventos listaEvento;

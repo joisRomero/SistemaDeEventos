@@ -45,6 +45,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tipoEventoActualizar->addItems(items);
     ui->tipoEventoEliminar->addItems(items);
     ui->tipoEventoActualizarBuscar->addItems(items);
+    items[1];
 
 }
 
@@ -81,14 +82,56 @@ void MainWindow::on_btnGuardarAgregar_clicked()
         Evento eventoAux(tipo, nombre, direccion, aforo, area, piso, costo);
         listaEvento.insertaListaEventos(eventoAux);
     } else {
-        QMessageBox::critical(this, "ERROR", "Llene todos los campos");
+        QMessageBox::warning(this, "", "Llene todos los campos");
     }
 
-    listaEvento.mostrarListaEventos();
     ui->nombreAgregar->clear();
     ui->direccionAgregar->clear();
     ui->aforoAgregar->clear();
     ui->areaAgregar->clear();
     ui->pisoAgregar->clear();
     ui->precioAgregar->clear();
+}
+
+void MainWindow::on_btnBuscarEliminar_clicked()
+{
+    ui->tablaEliminar->clearContents();
+    for (int y = 0; y < ui->tablaEliminar->rowCount(); y++) {
+        ui->tablaEliminar->removeRow(y);
+    }
+
+    QString tipoAux = ui->tipoEventoEliminar->itemText(ui->tipoEventoEliminar->currentIndex());
+    QStringList nombresAux = listaEvento.buscarPorTipo(tipoAux);
+
+    if (nombresAux.length() > 0){
+        for (int i = 0; i < nombresAux.length(); i++) {
+            ui->tablaEliminar->insertRow(ui->tablaEliminar->rowCount());
+            ui->tablaEliminar->setItem(ui->tablaEliminar->rowCount() - 1, 0,
+                                       new QTableWidgetItem(nombresAux[i]));
+        }
+    } else {
+        QMessageBox::information(this, "", "No hay eventos de ese tipo registrados");
+    }
+}
+
+void MainWindow::on_btnEliminar_clicked()
+{
+    int i = ui->tablaEliminar->currentRow();
+
+    if ( i > -1){
+        if (QMessageBox::question(this, "", "¿Estás seguro de eliminar?") == QMessageBox::Yes){
+            QString nombre = ui->tablaEliminar->currentItem()->text();
+            listaEvento.eliminarPorNombre(nombre);
+            QMessageBox::information(this, "", "Eliminado con éxito");
+        }
+
+    } else {
+        QMessageBox::warning(this, "", "Seleccione un evento");
+    }
+
+    ui->tablaEliminar->clearContents();
+    for (int y = 0; y < ui->tablaEliminar->rowCount(); y++) {
+        ui->tablaEliminar->removeRow(y);
+    }
+
 }

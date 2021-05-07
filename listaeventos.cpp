@@ -51,3 +51,38 @@ void ListaEventos::mostrarListaEventos(){
         aux =  aux->getSiguiente();
     }
 }
+
+QStringList ListaEventos::buscarPorTipo(QString tipo){
+    NodoEvento *aux = cabecera;
+    QStringList nombres;
+    while(aux != NULL){
+        if (aux->getEvento().getTipo() == tipo){
+            nombres << aux->getEvento().getNombre();
+        }
+        aux =  aux->getSiguiente();
+    }
+
+    return nombres;
+}
+
+void ListaEventos::eliminarPorNombre(QString nombre){
+    NodoEvento *aux = cabecera;
+    NodoEvento *anterior = NULL;
+
+    while(aux != NULL && aux->getEvento().getNombre() != nombre){
+        anterior = aux;
+        aux = aux->getSiguiente();
+    }
+
+    if(aux == NULL){
+    } else {
+        if (anterior == NULL){
+            cabecera = aux->getSiguiente();
+            delete aux;
+        } else {
+            anterior->setSiguiente(aux->getSiguiente());
+            delete aux;
+        }
+        total--;
+    }
+}

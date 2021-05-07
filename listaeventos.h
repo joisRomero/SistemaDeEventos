@@ -16,6 +16,8 @@ public:
 
     void insertaListaEventos(const Evento&);
     void mostrarListaEventos();
+    QStringList buscarPorTipo(QString);
+    void eliminarPorNombre(QString);
 };
 
 #endif // LISTAEVENTOS_H

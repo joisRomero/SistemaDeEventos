@@ -17,7 +17,11 @@ public:
     Evento();
     Evento(QString, QString, QString, int, float, int, float);
     ~Evento(){}
+
     void mostrarEvento();
+
+    QString getTipo(){return tipo;}
+    QString getNombre(){return nombre;}
 };
 
 #endif // EVENTO_H
