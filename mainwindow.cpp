@@ -47,6 +47,11 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tipoEventoActualizarBuscar->addItems(items);
     items[1];
 
+    QDate fechaActual = QDate().currentDate();
+    QTime horaActual = QTime().currentTime();
+    ui->fechaAlquilar->setDate(fechaActual);
+    ui->horaAlquilar->setTime(horaActual);
+
 }
 
 MainWindow::~MainWindow()
@@ -59,7 +64,7 @@ void MainWindow::on_btnVerMasAlquilar_clicked()
 {
     int i = ui->tablaAlquilar->currentRow();
 
-    if ( i > -1){
+    if ( i == -1){
         qDebug()<< "lo he seleccionado";
     }
 }
@@ -166,5 +171,5 @@ void MainWindow::on_btnBuscarActualizar_clicked()
             }
         } else {
             QMessageBox::information(this, "", "No hay eventos de ese tipo registrados");
-    }
+        }
 }

@@ -10,12 +10,16 @@ class Disponibilidad{
 
 public:
     Disponibilidad();
+    Disponibilidad(QDate, QTime, QTime, int);
     ~Disponibilidad(){}
     QDate getFechaEvento(){return fechaEvento;}
     QTime getHoraInicioEvento(){return horaInicioEvento;}
     QTime getHoraFinEvento(){return horaFinEvento;}
     void setFechaEvento(QDate _fechaEvento);
     void setHoraInicioEvento(QTime _horaInicioEvento);
+
+    void leerDisponibilidad();
+    void mostrarDisponibilidad();
 };
 
 #endif // DISPONIBILIDAD_H
