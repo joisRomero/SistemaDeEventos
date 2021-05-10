@@ -152,7 +152,7 @@ void MainWindow::on_btnEliminar_clicked()
 
 void MainWindow::on_btnBuscarActualizar_clicked()
 {
-    //Borra todas las filas
+    //CHAVEZ: Borra todas las filas
     int cant = ui->tablaActualizar->rowCount();
     for (int y = cant - 1; y >= 0; y--) {
         ui->tablaActualizar->removeRow(y);
@@ -171,5 +171,19 @@ void MainWindow::on_btnBuscarActualizar_clicked()
             }
         } else {
             QMessageBox::information(this, "", "No hay eventos de ese tipo registrados");
+        }
+        //RODO: Obtengo los datos de la interfaz Alquilar
+        QString tipo = ui->tipoEventoAlquilar->itemText(ui->tipoEventoActualizar->currentIndex());
+        QDate fecha = ui->fechaAlquilar->date();
+        QTime horaInicio = ui->horaAlquilar->time();
+        int horas = ui->tiempoAlquilar->text().toInt();
+        QTime horaFin = horaInicio.addSecs(horas*3600);
+
+        qDebug() << fecha;
+        qDebug() << horaInicio;
+        qDebug() << horaFin;
+        //Compruebo si todos los campos estan llenos
+        if (horas < 0){
+            QMessageBox::warning(this, "", "Llene todos los campos");
         }
 }
