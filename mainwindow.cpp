@@ -152,19 +152,59 @@ void MainWindow::on_btnBuscarActualizar_clicked()
     for (int y = cant - 1; y >= 0; y--) {
         ui->tablaActualizar->removeRow(y);
     }
-    QString tipo2 = ui->tipoEventoActualizar->itemText(ui->tipoEventoActualizar->currentIndex());
-        QStringList nombresAux2 = listaEvento.buscarPorTipo(tipo2);
+    QString tipo = ui->tipoEventoActualizarBuscar->itemText(ui->tipoEventoActualizarBuscar->currentIndex());
+    QStringList nombresAux = listaEvento.buscarPorTipo(tipo);
 
-        if (nombresAux2.length() > 0){
-            for (int i = 0; i < nombresAux2.length(); i++) {
+        if (nombresAux.length() > 0){
+            for (int i = 0; i < nombresAux.length(); i++) {
                 //Creo una fila al final de la tabla
                 ui->tablaActualizar->insertRow(ui->tablaActualizar->rowCount());
                 //inserto elementos en la fila creada
                 ui->tablaActualizar->setItem(ui->tablaActualizar->rowCount() - 1, 0,
-                                           new QTableWidgetItem(nombresAux2[i]));
-
+                                           new QTableWidgetItem(nombresAux[i]));
             }
         } else {
             QMessageBox::information(this, "", "No hay eventos de ese tipo registrados");
     }
+}
+void MainWindow::on_btnSeleccionarActualizar_clicked()
+{
+    int seleccion = ui->tablaActualizar->currentRow();
+     if ( seleccion > -1){
+         //obtengo el nombre de la fila ha actualizar
+         NodoEvento *aux = listaEvento.getCabecera();
+         QString nombre = ui->tablaActualizar->currentItem()->text();
+         QString direccion;
+         int aforo,piso;
+         float area,costo;
+         while(aux != NULL){
+             if (aux->getEvento().getNombre() == nombre){
+                 area=aux->getEvento().getArea();
+                 direccion=aux->getEvento().getDireccion();
+                 aforo=aux->getEvento().getAforo();
+                 costo=aux->getEvento().getCosto();
+                 piso=aux->getEvento().getPiso();
+             }
+             aux =  aux->getSiguiente();
+         }
+         ui->direccionActualizar->setText(direccion);
+         ui->aforoActualizar->setText(QString::number(aforo));
+         ui->nombreActualizar->setText(nombre);
+         ui->costoActualizar->setText(QString::number(costo));
+         ui->pisoActualizar->setText(QString::number(piso));
+         ui->pisoActualizar->setText(QString::number(area));
+
+     }else {
+         QMessageBox::warning(this, "", "Seleccione un evento");
+}
+
+
+}
+
+
+
+
+void MainWindow::on_btnActualizar_clicked()
+{
+
 }

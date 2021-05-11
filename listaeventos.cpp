@@ -86,3 +86,4 @@ void ListaEventos::eliminarPorNombre(QString nombre){
         total--;
     }
 }
+

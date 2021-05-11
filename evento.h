@@ -22,6 +22,11 @@ public:
 
     QString getTipo(){return tipo;}
     QString getNombre(){return nombre;}
+    float getArea(){return area;}
+    QString getDireccion(){return direccion;}
+    int getAforo(){return aforo;}
+    float getCosto(){return costo;}
+    int getPiso(){return piso;}
 };
 
 #endif // EVENTO_H

@@ -27,6 +27,12 @@ private slots:
 
     void on_btnBuscarActualizar_clicked();
 
+    void on_btnSeleccionarActualizar_clicked();
+
+    void on_nombreActualizar_cursorPositionChanged(int arg1, int arg2);
+
+    void on_btnActualizar_clicked();
+
 private:
     Ui::MainWindow *ui;
     ListaEventos listaEvento;
