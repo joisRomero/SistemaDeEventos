@@ -11,13 +11,19 @@ public:
     ~ListaEventos();
 
     void setCabecera(NodoEvento*);
+    void setTotal(int);
     NodoEvento* getCabecera(){return cabecera;}
+    int getTotal(){return total;}
     NodoEvento* getUltimo();
+    Evento getEventoPorNombre(QString nombre);
 
-    void insertaListaEventos(const Evento&);
+    void inserta(const Evento&);
     void mostrarListaEventos();
-    QStringList buscarPorTipo(QString);
-    void eliminarPorNombre(QString);
+    QStringList buscarPorTipo(QString tipo);
+    void eliminarPorNombre(QString nombre);
+    ListaEventos buscarDisponibilidad(QString tipo, Disponibilidad disponibilidad);
+    void operator = (ListaEventos listaEventos);
+    void insertarDisponibilidad(QString nombre, Disponibilidad disponibilidad);
 };
 
 #endif // LISTAEVENTOS_H

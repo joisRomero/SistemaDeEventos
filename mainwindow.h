@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "listaeventos.h"
+#include "listadisponibilidad.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -26,6 +27,10 @@ private slots:
     void on_btnEliminar_clicked();
 
     void on_btnBuscarActualizar_clicked();
+
+    void on_btnBuscarAlquilar_clicked();
+
+    void on_btnAlquilar_clicked();
 
 private:
     Ui::MainWindow *ui;

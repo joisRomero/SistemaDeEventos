@@ -495,7 +495,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <property name="documentMode">
        <bool>true</bool>
@@ -772,7 +772,7 @@
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="btnGuardarAlquilar">
+           <widget class="QPushButton" name="btnAlquilar">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -787,7 +787,7 @@
              </font>
             </property>
             <property name="text">
-             <string>GUARDAR</string>
+             <string>ALQUILAR</string>
             </property>
            </widget>
           </item>

@@ -15,7 +15,8 @@ SOURCES += \
     listaeventos.cpp \
     main.cpp \
     mainwindow.cpp \
-    nodoevento.cpp
+    nodoevento.cpp \
+    vermas.cpp
 
 HEADERS += \
     disponibilidad.h \
@@ -23,10 +24,12 @@ HEADERS += \
     listadisponibilidad.h \
     listaeventos.h \
     mainwindow.h \
-    nodoevento.h
+    nodoevento.h \
+    vermas.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    vermas.ui
 
 RC_ICONS = icono.ico
 

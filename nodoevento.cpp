@@ -11,3 +11,7 @@ void NodoEvento::setEvento(const Evento& _datos){
 void NodoEvento::setSiguiente(NodoEvento * _siguiente){
     siguiente = _siguiente;
 }
+
+void NodoEvento::setListaDisponibilidad(Disponibilidad disponibilidad){
+    listaDisponibilidad.inserta(disponibilidad);
+}

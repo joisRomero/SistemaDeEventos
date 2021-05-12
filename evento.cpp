@@ -30,3 +30,7 @@ void Evento::mostrarEvento(){
     qDebug()<< "," << piso;
     qDebug()<< "," << costo;
 }
+
+
+
+
