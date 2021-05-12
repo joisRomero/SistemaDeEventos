@@ -28,6 +28,14 @@ public:
     QString getDireccion(){return direccion;}
     int getPiso(){return piso;}
 
+    void setTipo(QString tipo){this->tipo = tipo;}
+    void setNombre(QString nombre){this->nombre = nombre;}
+    void setAforo(int aforo){this->aforo = aforo;}
+    void setCosto(float costo){this->costo = costo;}
+    void setArea(float area){this->area = area;}
+    void setDireccion(QString direccion){this->direccion = direccion;}
+    void setPiso(int piso){this->piso = piso;}
+
 };
 
 #endif // EVENTO_H

@@ -32,9 +32,14 @@ private slots:
 
     void on_btnAlquilar_clicked();
 
+    void on_btnSeleccionarActualizar_clicked();
+
+    void on_btnActualizar_clicked();
+
 private:
     Ui::MainWindow *ui;
     ListaEventos listaEvento;
+    QString nombreAux;
 
 };
 #endif // MAINWINDOW_H

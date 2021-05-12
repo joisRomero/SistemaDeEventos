@@ -24,6 +24,8 @@ public:
     ListaEventos buscarDisponibilidad(QString tipo, Disponibilidad disponibilidad);
     void operator = (ListaEventos listaEventos);
     void insertarDisponibilidad(QString nombre, Disponibilidad disponibilidad);
+    void actualizarDatos(QString nombre, Evento evento);
+
 };
 
 #endif // LISTAEVENTOS_H

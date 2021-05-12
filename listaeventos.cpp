@@ -132,3 +132,14 @@ void ListaEventos::insertarDisponibilidad(QString nombre, Disponibilidad disponi
         aux =  aux->getSiguiente();
     }
 }
+
+void ListaEventos::actualizarDatos(QString nombre, Evento evento){
+    NodoEvento *aux = cabecera;
+    while(aux != NULL){
+        if (aux->getEvento().getNombre() == nombre){
+            aux->setEvento(evento);
+        }
+        aux = aux->getSiguiente();
+    }
+}
+

@@ -654,7 +654,7 @@
              </font>
             </property>
             <property name="text">
-             <string>TIEMPO</string>
+             <string>TIEMPO(Horas)</string>
             </property>
            </widget>
           </item>
@@ -1321,6 +1321,9 @@
           </item>
           <item>
            <widget class="QComboBox" name="tipoEventoActualizar">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="minimumSize">
              <size>
               <width>330</width>
@@ -1380,6 +1383,9 @@
         </item>
         <item>
          <widget class="QLineEdit" name="nombreActualizar">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="minimumSize">
            <size>
             <width>0</width>
@@ -1424,6 +1430,9 @@
         </item>
         <item>
          <widget class="QLineEdit" name="direccionActualizar">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="minimumSize">
            <size>
             <width>0</width>
@@ -1455,6 +1464,9 @@
             </item>
             <item>
              <widget class="QLineEdit" name="aforoActualizar">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="minimumSize">
                <size>
                 <width>0</width>
@@ -1496,6 +1508,9 @@
             </item>
             <item>
              <widget class="QLineEdit" name="areaActualizar">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="minimumSize">
                <size>
                 <width>0</width>
@@ -1537,6 +1552,9 @@
             </item>
             <item>
              <widget class="QLineEdit" name="pisoActualizar">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="minimumSize">
                <size>
                 <width>0</width>
@@ -1572,12 +1590,15 @@
                </font>
               </property>
               <property name="text">
-               <string>COSTO</string>
+               <string>PRECIO</string>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QLineEdit" name="costoActualizar">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="minimumSize">
                <size>
                 <width>0</width>
@@ -1610,6 +1631,9 @@
           </item>
           <item>
            <widget class="QPushButton" name="btnActualizar">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="minimumSize">
              <size>
               <width>95</width>
