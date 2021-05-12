@@ -337,7 +337,8 @@ void MainWindow::on_btnVerMasAlquilar_clicked()
         verMas *ventana = new verMas;
         ventana->setModal(true);
         ventana->show();
-        QString nombre = ui->tablaAlquilar->currentItem()->text();
+        int fila = ui->tablaAlquilar->currentRow();
+        QString nombre = ui->tablaAlquilar->item(fila,0)->text();
 
         auxNodoEvento = listaEvento.getNodoEvento(nombre);
         ventana->mostrarEvento(auxNodoEvento);
