@@ -6,6 +6,9 @@
 #include <QMessageBox>
 #include "vermas.h"
 #include "ui_verMas.h"
+#include "vntactualizar.h"
+
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -23,19 +26,12 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tablaAlquilar->setColumnWidth(2, 50);
     ui->tablaAlquilar->setColumnWidth(3, 90);
 
-    //Titulos para la tabla en la pestania actualizar
-    QStringList titulosActualizar;
-    titulosActualizar << "Nombre";
-    ui->tablaActualizar->setColumnCount(1);
-    ui->tablaActualizar->setHorizontalHeaderLabels(titulosActualizar);
-    ui->tablaActualizar->setColumnWidth(0, 580);
-
-    //Titulos para la tabla en la pestania Eliminar
-    QStringList titulosEliminar;
-    titulosEliminar << "Nombre";
-    ui->tablaEliminar->setColumnCount(1);
-    ui->tablaEliminar->setHorizontalHeaderLabels(titulosEliminar);
-    ui->tablaEliminar->setColumnWidth(0, 580);
+    //Titulos para la tabla en la pestania Procesos
+    QStringList titulosProcesos;
+    titulosProcesos << "Nombre";
+    ui->tablaProceso->setColumnCount(1);
+    ui->tablaProceso->setHorizontalHeaderLabels(titulosProcesos);
+    ui->tablaProceso->setColumnWidth(0, 400);
 
     //items
     QStringList items;
@@ -45,9 +41,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->tipoEventoAgregar->addItems(items);
     ui->tipoEventoAlquilar->addItems(items);
-    ui->tipoEventoActualizar->addItems(items);
-    ui->tipoEventoEliminar->addItems(items);
-    ui->tipoEventoActualizarBuscar->addItems(items);
+    ui->tipoEventoProceso->addItems(items);
 
     //Hora y fecha alquilar
     ui->fechaAlquilar->setDate(QDate::currentDate());
@@ -89,43 +83,46 @@ void MainWindow::on_btnGuardarAgregar_clicked()
     ui->precioAgregar->clear();
 }
 
-//--------MODULO ELIMINAR-----------------
-void MainWindow::on_btnBuscarEliminar_clicked()
+//--------MODULO ACTUALIZAR/ELIMINAR-----------------
+void MainWindow::on_btnBuscarProceso_clicked()
 {
     //Borrar todas las filas
-    int cant = ui->tablaEliminar->rowCount();
+    int cant = ui->tablaProceso->rowCount();
     for (int y = cant - 1; y >= 0; y--) {
-        ui->tablaEliminar->removeRow(y);
+        ui->tablaProceso->removeRow(y);
     }
 
-    QString tipo = ui->tipoEventoEliminar->itemText(ui->tipoEventoEliminar->currentIndex());
+    QString tipo = ui->tipoEventoProceso->itemText(ui->tipoEventoProceso->currentIndex());
     QStringList nombresAux = listaEvento.buscarPorTipo(tipo);
 
     if (nombresAux.length() > 0){
         for (int i = 0; i < nombresAux.length(); i++) {
             //Creo una fila al final de la tabla
-            ui->tablaEliminar->insertRow(ui->tablaEliminar->rowCount());
+            ui->tablaProceso->insertRow(ui->tablaProceso->rowCount());
             //inserto elementos en la fila creada
-            ui->tablaEliminar->setItem(ui->tablaEliminar->rowCount() - 1, 0,
+            ui->tablaProceso->setItem(ui->tablaProceso->rowCount() - 1, 0,
                                        new QTableWidgetItem(nombresAux[i]));
         }
     } else {
         QMessageBox::information(this, "", "No hay eventos de ese tipo registrados");
     }
+
 }
+//--------PROCESO ELIMINAR-----------------
+
 
 void MainWindow::on_btnEliminar_clicked()
 {
     //Obetengo un valor numero que me indica si una fila esta selecionada
     //Devuelve -1 si no hay nada seleccionado
-    int seleccion = ui->tablaEliminar->currentRow();
+    int seleccion = ui->tablaProceso->currentRow();
 
     //Verifico si una fila esta seleccionada
     if ( seleccion > -1){
         if (QMessageBox::question(this, "", "¿Estás seguro de eliminar?") == QMessageBox::Yes){
             //obtengo el nombre de la fila ha eliminar
-            int fila = ui->tablaEliminar->currentRow();
-            QString nombre = ui->tablaEliminar->item(fila,0)->text();
+            int fila = ui->tablaProceso->currentRow();
+            QString nombre = ui->tablaProceso->item(fila,0)->text();
             listaEvento.eliminarPorNombre(nombre);
             QMessageBox::information(this, "", "Eliminado con éxito");
         }
@@ -135,129 +132,36 @@ void MainWindow::on_btnEliminar_clicked()
     }
 
     //Borra todas las filas
-    int cant = ui->tablaEliminar->rowCount();
+    int cant = ui->tablaProceso->rowCount();
     for (int y = cant - 1; y >= 0; y--) {
-        ui->tablaEliminar->removeRow(y);
+        ui->tablaProceso->removeRow(y);
     }
 }
 
 //--------MODULO ACTUALIZAR-----------------
-void MainWindow::on_btnBuscarActualizar_clicked()
-{
-   //Borra todas las filas
-   int cant = ui->tablaActualizar->rowCount();
-   for (int y = cant - 1; y >= 0; y--) {
-       ui->tablaActualizar->removeRow(y);
-   }
-   QString tipo = ui->tipoEventoActualizarBuscar->itemText(ui->tipoEventoActualizarBuscar->currentIndex());
-   QStringList nombresAux = listaEvento.buscarPorTipo(tipo);
-
-   if (nombresAux.length() > 0){
-       for (int i = 0; i < nombresAux.length(); i++) {
-       //Creo una fila al final de la tabla
-       ui->tablaActualizar->insertRow(ui->tablaActualizar->rowCount());
-       //inserto elementos en la fila creada
-       ui->tablaActualizar->setItem(ui->tablaActualizar->rowCount() - 1, 0,
-                                      new QTableWidgetItem(nombresAux[i]));
-       }
-   } else {
-       QMessageBox::information(this, "", "No hay eventos de ese tipo registrados");
-   }
-}
-
-void MainWindow::on_btnSeleccionarActualizar_clicked()
-{
-    int seleccion = ui->tablaActualizar->currentRow();
-    if ( seleccion > -1){
-        //obtengo el nombre de la fila ha actualizar
-        NodoEvento *aux = listaEvento.getCabecera();
-        int fila = ui->tablaActualizar->currentRow();
-        QString nombre = ui->tablaActualizar->item(fila,0)->text();
-        QString direccion, tipo;
-        int aforo,piso;
-        float area,costo;
-        while(aux != NULL){
-            if (aux->getEvento().getNombre() == nombre){
-                area=aux->getEvento().getArea();
-                direccion=aux->getEvento().getDireccion();
-                aforo=aux->getEvento().getAforo();
-                costo=aux->getEvento().getCosto();
-                piso=aux->getEvento().getPiso();
-                tipo=aux->getEvento().getTipo();
-            }
-            aux =  aux->getSiguiente();
-        }
-        nombreAux = nombre;
-        ui->direccionActualizar->setText(direccion);
-        ui->aforoActualizar->setText(QString::number(aforo));
-        ui->nombreActualizar->setText(nombre);
-        ui->costoActualizar->setText(QString::number(costo));
-        ui->pisoActualizar->setText(QString::number(piso));
-        ui->areaActualizar->setText(QString::number(area));
-        ui->tipoEventoActualizar->setCurrentText(tipo);
-
-        ui->tipoEventoActualizar->setEnabled(true);
-        ui->direccionActualizar->setEnabled(true);
-        ui->aforoActualizar->setEnabled(true);
-        ui->nombreActualizar->setEnabled(true);
-        ui->costoActualizar->setEnabled(true);
-        ui->pisoActualizar->setEnabled(true);
-        ui->areaActualizar->setEnabled(true);
-        ui->btnActualizar->setEnabled(true);
-
-    }else {
-        QMessageBox::warning(this, "", "Seleccione un evento");
-   }
-}
 
 void MainWindow::on_btnActualizar_clicked()
 {
-   //obtengo los datos de la interfas actualizar
-   QString tipo = ui->tipoEventoActualizar->itemText(ui->tipoEventoActualizar->currentIndex());
-   QString nombre = ui->nombreActualizar->text();
-   QString direccion = ui->direccionActualizar->text();
-   int aforo = ui->aforoActualizar->text().toInt();
-   float area = ui->areaActualizar->text().toFloat();
-   int piso = ui->pisoActualizar->text().toInt();
-   float costo = ui->costoActualizar->text().toInt();
-
-
-   //compruebo si todos los campos estan llenos
-   if (ui->nombreActualizar->text() != "" && ui->direccionActualizar->text() != ""
-       && ui->aforoActualizar->text() != "" && ui->areaActualizar->text() != ""
-       && ui->pisoActualizar->text() != "" && ui->costoActualizar->text() != ""){
-
-       Evento eventoAux(tipo, nombre, direccion, aforo, area, piso, costo);
-       int fila = ui->tablaActualizar->currentRow();
-       QString nombre = ui->tablaActualizar->item(fila,0)->text();
-       listaEvento.actualizarDatos(nombre, eventoAux);
-       QMessageBox::information(this, "", "Actualizado con éxito");
-
-   } else {
-       QMessageBox::warning(this, "", "Llene todos los campos");
-   }
-
-   ui->nombreActualizar->clear();
-   ui->direccionActualizar->clear();
-   ui->aforoActualizar->clear();
-   ui->areaActualizar->clear();
-   ui->pisoActualizar->clear();
-   ui->costoActualizar->clear();
-
-   ui->tipoEventoActualizar->setEnabled(false);
-   ui->direccionActualizar->setEnabled(false);
-   ui->aforoActualizar->setEnabled(false);
-   ui->nombreActualizar->setEnabled(false);
-   ui->costoActualizar->setEnabled(false);
-   ui->pisoActualizar->setEnabled(false);
-   ui->areaActualizar->setEnabled(false);
-   ui->btnActualizar->setEnabled(false);
-
-   //Borra todas las filas
-   int cant = ui->tablaActualizar->rowCount();
-   for (int y = cant - 1; y >= 0; y--) {
-       ui->tablaActualizar->removeRow(y);
-   }
+    int i = ui->tablaProceso->currentRow();
+    Evento evento;
+    if ( i > -1){
+        int fila = ui->tablaProceso->currentRow();
+        QString nombre = ui->tablaProceso->item(fila,0)->text();
+        evento = listaEvento.getEventoPorNombre(nombre);
+        VntActualizar ventana(this);
+        ventana.mostrar(evento);
+        ventana.exec();
+        evento = ventana.getEvento();
+        listaEvento.actualizarDatos(nombre, evento);
+        QMessageBox::information(this, "", "Se actualizaron los datos");
+    }else {
+        QMessageBox::warning(this, "", "Seleccione un evento");
+    }
+    //Borra todas las filas
+    int cant = ui->tablaProceso->rowCount();
+    for (int y = cant - 1; y >= 0; y--) {
+        ui->tablaProceso->removeRow(y);
+    }
 }
 
 //--------MODULO ALQUILAR-----------------
@@ -379,5 +283,7 @@ void MainWindow::on_btnAlquilar_clicked()
 
     }
 }
+
+
 
 

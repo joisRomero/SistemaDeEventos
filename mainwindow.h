@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "listaeventos.h"
 #include "listadisponibilidad.h"
+#include "vntactualizar.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -22,24 +23,20 @@ private slots:
 
     void on_btnGuardarAgregar_clicked();
 
-    void on_btnBuscarEliminar_clicked();
-
     void on_btnEliminar_clicked();
-
-    void on_btnBuscarActualizar_clicked();
 
     void on_btnBuscarAlquilar_clicked();
 
     void on_btnAlquilar_clicked();
 
-    void on_btnSeleccionarActualizar_clicked();
-
     void on_btnActualizar_clicked();
+
+    void on_btnBuscarProceso_clicked();
+
 
 private:
     Ui::MainWindow *ui;
     ListaEventos listaEvento;
-    QString nombreAux;
 
 };
 #endif // MAINWINDOW_H
