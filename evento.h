@@ -2,6 +2,7 @@
 #define EVENTO_H
 
 #include <QString>
+#include "listadisponibilidad.h"
 
 
 class Evento{
@@ -16,12 +17,17 @@ class Evento{
 public:
     Evento();
     Evento(QString, QString, QString, int, float, int, float);
-    ~Evento(){}
 
     void mostrarEvento();
 
     QString getTipo(){return tipo;}
     QString getNombre(){return nombre;}
+    int getAforo(){return aforo;}
+    float getCosto(){return costo;}
+    float getArea(){return area;}
+    QString getDireccion(){return direccion;}
+    int getPiso(){return piso;}
+
 };
 
 #endif // EVENTO_H

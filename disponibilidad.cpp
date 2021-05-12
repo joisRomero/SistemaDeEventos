@@ -11,6 +11,7 @@ Disponibilidad::Disponibilidad(QDate fechaEvento, QTime horaInicioEvento, QTime 
     this->horas = horas;
 }
 
+
 void Disponibilidad::setFechaEvento(QDate _fechaEvento){
     fechaEvento = _fechaEvento;
 }
@@ -19,10 +20,7 @@ void Disponibilidad::setHoraInicioEvento(QTime _horaInicioEvento){
     horaInicioEvento = _horaInicioEvento;
 }
 
-void Disponibilidad::leerDisponibilidad(){
-
+void Disponibilidad::setHoraFinEvento(QTime _horaFinEvento){
+    horaFinEvento = _horaFinEvento;
 }
 
-void Disponibilidad::mostrarDisponibilidad(){
-
-}

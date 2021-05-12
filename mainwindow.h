@@ -30,6 +30,8 @@ private slots:
 
     void on_btnBuscarAlquilar_clicked();
 
+    void on_btnAlquilar_clicked();
+
 private:
     Ui::MainWindow *ui;
     ListaEventos listaEvento;

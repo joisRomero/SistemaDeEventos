@@ -4,6 +4,8 @@
 #include "listaeventos.h"
 #include <QDebug>
 #include <QMessageBox>
+#include "vermas.h"
+#include "ui_verMas.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -11,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    //Titulos para la tamba en la pestania Alquilar
+    //Titulos para la tabla en la pestania Alquilar
     QStringList titulosAlquilar;
     titulosAlquilar << "Nombre" << "Aforo" << "Precio";
     ui->tablaAlquilar->setColumnCount(3);
@@ -20,14 +22,14 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tablaAlquilar->setColumnWidth(1, 50);
     ui->tablaAlquilar->setColumnWidth(2, 50);
 
-    //Titulos para la tamba en la pestania Alquilar
+    //Titulos para la tabla en la pestania actualizar
     QStringList titulosActualizar;
     titulosActualizar << "Nombre";
     ui->tablaActualizar->setColumnCount(1);
     ui->tablaActualizar->setHorizontalHeaderLabels(titulosActualizar);
     ui->tablaActualizar->setColumnWidth(0, 580);
 
-    //Titulos para la tamba en la pestania Eliminar
+    //Titulos para la tabla en la pestania Eliminar
     QStringList titulosEliminar;
     titulosEliminar << "Nombre";
     ui->tablaEliminar->setColumnCount(1);
@@ -45,28 +47,15 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tipoEventoActualizar->addItems(items);
     ui->tipoEventoEliminar->addItems(items);
     ui->tipoEventoActualizarBuscar->addItems(items);
-    items[1];
 
-    QDate fechaActual = QDate().currentDate();
-    QTime horaActual = QTime().currentTime();
-    ui->fechaAlquilar->setDate(fechaActual);
-    ui->horaAlquilar->setTime(horaActual);
-
+    //Hora y fecha alquilar
+    ui->fechaAlquilar->setDate(QDate::currentDate());
+    ui->horaAlquilar->setTime(QTime::currentTime());
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-
-void MainWindow::on_btnVerMasAlquilar_clicked()
-{
-    int i = ui->tablaAlquilar->currentRow();
-
-    if ( i == -1){
-        qDebug()<< "lo he seleccionado";
-    }
 }
 
 void MainWindow::on_btnGuardarAgregar_clicked()
@@ -85,7 +74,7 @@ void MainWindow::on_btnGuardarAgregar_clicked()
         && ui->aforoAgregar->text() != "" && ui->areaAgregar->text() != ""
         && ui->pisoAgregar->text() != "" && ui->precioAgregar->text() != ""){
         Evento eventoAux(tipo, nombre, direccion, aforo, area, piso, costo);
-        listaEvento.insertaListaEventos(eventoAux);
+        listaEvento.inserta(eventoAux);
     } else {
         QMessageBox::warning(this, "", "Llene todos los campos");
     }
@@ -149,7 +138,6 @@ void MainWindow::on_btnEliminar_clicked()
 
 }
 
-
 void MainWindow::on_btnBuscarActualizar_clicked()
 {
     //CHAVEZ: Borra todas las filas
@@ -186,4 +174,94 @@ void MainWindow::on_btnBuscarActualizar_clicked()
         if (horas < 0){
             QMessageBox::warning(this, "", "Llene todos los campos");
         }
+}
+
+void MainWindow::on_btnBuscarAlquilar_clicked()
+{
+    //Borra todas las filas
+    int cant = ui->tablaAlquilar->rowCount();
+    for (int y = cant - 1; y >= 0; y--) {
+        ui->tablaAlquilar->removeRow(y);
+    }
+
+    ListaEventos listaAux;
+
+    //Obtengo los datos de la interfaz Alquilar
+    QString tipo = ui->tipoEventoAlquilar->itemText(ui->tipoEventoAlquilar->currentIndex());
+    QDate fecha = ui->fechaAlquilar->date();
+    QTime horaInicio = ui->horaAlquilar->time();
+    int horas = ui->tiempoAlquilar->text().toInt();
+    QTime horaFin = horaInicio.addSecs(horas*3600);
+
+    //Compruebo si todos los campos estan llenos
+    if (ui->tiempoAlquilar->text() == ""){
+        QMessageBox::warning(this, "", "Llene todos los campos");
+    }else if (fecha < QDate::currentDate()){
+        QMessageBox::warning(this, "", "Ingrese una fecha mayor a la actual");
+    } else {
+        Disponibilidad auxDis(fecha, horaInicio, horaFin, horas);
+        listaAux = listaEvento.buscarDisponibilidad(tipo,auxDis);
+        if(listaAux.getTotal() == 0){
+            QMessageBox::warning(this, "", "No se encontraron Eventos");
+        } else {
+            NodoEvento *aux = listaAux.getCabecera();
+            while(aux != NULL){
+                //Creo una fila al final de la tabla
+                ui->tablaAlquilar->insertRow(ui->tablaAlquilar->rowCount());
+                //inserto elementos en la fila creada
+                ui->tablaAlquilar->setItem(ui->tablaAlquilar->rowCount() - 1, 0,
+                                           new QTableWidgetItem(aux->getEvento().getNombre()));
+                ui->tablaAlquilar->setItem(ui->tablaAlquilar->rowCount() - 1, 1,
+                                           new QTableWidgetItem(QString::number(aux->getEvento().getAforo())));
+                ui->tablaAlquilar->setItem(ui->tablaAlquilar->rowCount() - 1, 2,
+                                           new QTableWidgetItem(QString::number(aux->getEvento().getCosto())));
+                aux =  aux->getSiguiente();
+            }
+        }
+    }
+
+}
+
+void MainWindow::on_btnVerMasAlquilar_clicked()
+{
+    int i = ui->tablaAlquilar->currentRow();
+    Evento evento;
+    if ( i > -1){
+        verMas *ventana = new verMas;
+        ventana->setModal(true);
+        ventana->show();
+        QString nombre = ui->tablaAlquilar->currentItem()->text();
+
+        evento = listaEvento.getEventoPorNombre(nombre);
+        ventana->mostrarEvento(evento);
+    }
+}
+
+
+void MainWindow::on_btnAlquilar_clicked()
+{
+    int i = ui->tablaAlquilar->currentRow();
+
+    if ( i > -1){
+        //Obtengo los datos de la interfaz Alquilar
+        QString tipo = ui->tipoEventoAlquilar->itemText(ui->tipoEventoAlquilar->currentIndex());
+        QDate fecha = ui->fechaAlquilar->date();
+        QTime horaInicio = ui->horaAlquilar->time();
+        int horas = ui->tiempoAlquilar->text().toInt();
+        QTime horaFin = horaInicio.addSecs(horas*3600);
+
+        Disponibilidad disponibilidad(fecha, horaInicio, horaFin, horas);
+
+        QString nombre = ui->tablaAlquilar->currentItem()->text();
+        listaEvento.insertarDisponibilidad(nombre, disponibilidad);
+
+        QMessageBox::information(this, "", "Operacion terminada con exito");
+
+        //Borra todas las filas
+        int cant = ui->tablaAlquilar->rowCount();
+        for (int y = cant - 1; y >= 0; y--) {
+            ui->tablaAlquilar->removeRow(y);
+        }
+
+    }
 }

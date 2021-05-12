@@ -17,9 +17,10 @@ public:
     QTime getHoraFinEvento(){return horaFinEvento;}
     void setFechaEvento(QDate _fechaEvento);
     void setHoraInicioEvento(QTime _horaInicioEvento);
-
+    void setHoraFinEvento(QTime _horaFinEvento);
     void leerDisponibilidad();
     void mostrarDisponibilidad();
+
 };
 
 #endif // DISPONIBILIDAD_H

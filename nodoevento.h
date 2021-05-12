@@ -2,12 +2,12 @@
 #define NODOEVENTO_H
 
 #include "evento.h"
-#include "listadisponibilidad.h"
+
 
 class NodoEvento{
     Evento datos;
     NodoEvento *siguiente;
-    ListaDisponibilidad disponibilidad;
+    ListaDisponibilidad listaDisponibilidad;
 
 public:
     NodoEvento();
@@ -17,6 +17,10 @@ public:
     void setSiguiente(NodoEvento*);
     Evento getEvento(){return datos;}
     NodoEvento* getSiguiente(){return siguiente;}
+
+    ListaDisponibilidad getListaDisponibilidad() {return listaDisponibilidad;}
+    void setListaDisponibilidad(Disponibilidad disponibilidad);
+
 };
 
 #endif // NODOEVENTO_H

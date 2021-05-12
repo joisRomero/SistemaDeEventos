@@ -19,6 +19,10 @@ void ListaEventos::setCabecera(NodoEvento *_cabecera){
     cabecera = _cabecera;
 }
 
+void ListaEventos::setTotal(int total){
+    this->total = total;
+}
+
 NodoEvento* ListaEventos::getUltimo(){
     NodoEvento *ultimo = cabecera;
     while(ultimo->getSiguiente() != NULL){
@@ -27,7 +31,7 @@ NodoEvento* ListaEventos::getUltimo(){
     return ultimo;
 }
 
-void ListaEventos::insertaListaEventos(const Evento& _evento){
+void ListaEventos::inserta(const Evento& _evento){
     NodoEvento *aux = new NodoEvento;
     aux->setEvento(_evento);
 
@@ -45,9 +49,7 @@ void ListaEventos::mostrarListaEventos(){
     NodoEvento *aux = cabecera;
 
     while(aux != NULL){
-        qDebug()<< "--------";
         aux->getEvento().mostrarEvento();
-        qDebug()<< "--------";
         aux =  aux->getSiguiente();
     }
 }
@@ -84,5 +86,49 @@ void ListaEventos::eliminarPorNombre(QString nombre){
             delete aux;
         }
         total--;
+    }
+}
+
+ListaEventos ListaEventos::buscarDisponibilidad(QString tipo, Disponibilidad disponibilidad){
+    ListaEventos listaAux;
+    NodoEvento *aux = cabecera;
+    while(aux != NULL){
+        if (aux->getEvento().getTipo() == tipo){
+            if(aux->getListaDisponibilidad().buscarDisponibilidad(disponibilidad)){
+                 listaAux.inserta(aux->getEvento());
+            }
+        }
+        aux =  aux->getSiguiente();
+    }
+    return listaAux;
+}
+
+void ListaEventos::operator=(ListaEventos listaEventos){
+    NodoEvento *aux = listaEventos.getCabecera();
+    while(aux != NULL){
+        this->inserta(aux->getEvento());
+        aux =  aux->getSiguiente();
+    }
+}
+
+Evento ListaEventos::getEventoPorNombre(QString nombre){
+    NodoEvento *aux = cabecera;
+    Evento eventoAux;
+    while(aux != NULL){
+        if (aux->getEvento().getNombre() == nombre){
+            eventoAux = aux->getEvento();
+        }
+        aux =  aux->getSiguiente();
+    }
+    return eventoAux;
+}
+
+void ListaEventos::insertarDisponibilidad(QString nombre, Disponibilidad disponibilidad){
+    NodoEvento *aux = cabecera;
+    while(aux != NULL){
+        if (aux->getEvento().getNombre() == nombre){
+            aux->setListaDisponibilidad(disponibilidad);
+        }
+        aux =  aux->getSiguiente();
     }
 }

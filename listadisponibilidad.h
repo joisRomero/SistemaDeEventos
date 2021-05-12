@@ -2,18 +2,22 @@
 #define LISTADISPONIBILIDAD_H
 
 #include "disponibilidad.h"
-#define DELTA 20
+#define DELTA 4
 
 class ListaDisponibilidad{
     int N, Max;
-    Disponibilidad **datos;
-
+    Disponibilidad *datos;
 public:
     ListaDisponibilidad();
-    ~ListaDisponibilidad();
 
     void crece();
-    void inserta(Disponibilidad *D);
+    void inserta(Disponibilidad);
+
+    void leerListaDisponibilidad();
+    void mostrarListaDisponibilidad();
+
+    bool buscarDisponibilidad(Disponibilidad disponibilidad);
+    friend class Evento;
 };
 
 #endif // LISTADISPONIBILIDAD_H
