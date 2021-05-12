@@ -14,14 +14,48 @@ verMas::~verMas()
     delete ui;
 }
 
-void verMas::mostrarEvento(NodoEvento *nodoEvento){
-    ui->labelAforo->setText(QString::number(nodoEvento->getEvento().getAforo()));
-    ui->labelArea->setText(QString::number(nodoEvento->getEvento().getArea()));
-    ui->labelPiso->setText(QString::number(nodoEvento->getEvento().getPiso()));
-    ui->labelCosto->setText(QString::number(nodoEvento->getEvento().getCosto()));
-    ui->labelDireccion->setText(nodoEvento->getEvento().getDireccion());
-    ui->labelNombre->setText(nodoEvento->getEvento().getNombre());
-    ui->labelTipo->setText(nodoEvento->getEvento().getTipo());
+void verMas::mostrarEvento(NodoEvento *auxNodoEvento){
+    ui->labelAforo->setText(QString::number(auxNodoEvento->getEvento().getAforo()));
+    ui->labelArea->setText(QString::number(auxNodoEvento->getEvento().getArea()));
+    ui->labelPiso->setText(QString::number(auxNodoEvento->getEvento().getPiso()));
+    ui->labelCosto->setText(QString::number(auxNodoEvento->getEvento().getCosto()));
+    ui->labelDireccion->setText(auxNodoEvento->getEvento().getDireccion());
+    ui->labelNombre->setText(auxNodoEvento->getEvento().getNombre());
+    ui->labelTipo->setText(auxNodoEvento->getEvento().getTipo());
+
+    //Group Box Derecha: EVENTOS
+    //Borra todas las filas
+    int cant = ui->tablaEventosVerMas->rowCount();
+    for (int y = cant - 1; y >= 0; y--) {
+        ui->tablaEventosVerMas->removeRow(y);
+    }
+
+    QString dia, mes, anio, horaInicio, minutosInicio, horaFin, minutosFin;
+    QString fecha;
+    QString horaCompletaInicio;
+    QString horaCompletaFin;
+
+    for(int i = 0; i < auxNodoEvento->getListaDisponibilidad().getN(); i++){
+        dia = QString::number(auxNodoEvento->getListaDisponibilidad().getDisponibilidad()[i].getFechaEvento().day());
+        mes = QString::number(auxNodoEvento->getListaDisponibilidad().getDisponibilidad()[i].getFechaEvento().month());
+        anio = QString::number(auxNodoEvento->getListaDisponibilidad().getDisponibilidad()[i].getFechaEvento().year());
+        fecha = dia + "/" + mes + "/"+ anio;
+
+        horaInicio = QString::number(auxNodoEvento->getListaDisponibilidad().getDisponibilidad()[i].getHoraInicioEvento().hour());
+        minutosInicio = QString::number(auxNodoEvento->getListaDisponibilidad().getDisponibilidad()[i].getHoraInicioEvento().minute());
+        horaCompletaInicio = horaInicio + ":" + minutosInicio;
+
+        horaFin = QString::number(auxNodoEvento->getListaDisponibilidad().getDisponibilidad()[i].getHoraFinEvento().hour());
+        minutosFin = QString::number(auxNodoEvento->getListaDisponibilidad().getDisponibilidad()[i].getHoraFinEvento().minute());
+        horaCompletaFin = horaFin+ ":" + minutosFin;
+
+        //Creo una fila al final de la tabla
+        ui->tablaEventosVerMas->insertRow(ui->tablaEventosVerMas->rowCount());
+        //inserto elementos en la fila creada
+        ui->tablaEventosVerMas->setItem(ui->tablaEventosVerMas->rowCount() -1, 0, new QTableWidgetItem(fecha));
+        ui->tablaEventosVerMas->setItem(ui->tablaEventosVerMas->rowCount() -1, 1, new QTableWidgetItem(horaCompletaInicio));
+        ui->tablaEventosVerMas->setItem(ui->tablaEventosVerMas->rowCount() -1, 2, new QTableWidgetItem(horaCompletaFin));
+    }
 }
 
 void verMas::on_btnOk_clicked()
