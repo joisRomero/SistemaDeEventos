@@ -17,6 +17,9 @@ public:
     void mostrarListaDisponibilidad();
 
     bool buscarDisponibilidad(Disponibilidad disponibilidad);
+    Disponibilidad* getDisponibilidad(){return datos;}
+    int getN(){return N;};
+
     friend class Evento;
 };
 
