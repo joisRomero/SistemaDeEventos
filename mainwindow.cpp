@@ -59,6 +59,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+//--------MODULO GUARDAR-----------------
 void MainWindow::on_btnGuardarAgregar_clicked()
 {
     //obtengo los datos de la interfas agregar
@@ -88,6 +89,7 @@ void MainWindow::on_btnGuardarAgregar_clicked()
     ui->precioAgregar->clear();
 }
 
+//--------MODULO ELIMINAR-----------------
 void MainWindow::on_btnBuscarEliminar_clicked()
 {
     //Borrar todas las filas
@@ -139,6 +141,7 @@ void MainWindow::on_btnEliminar_clicked()
     }
 }
 
+//--------MODULO ACTUALIZAR-----------------
 void MainWindow::on_btnBuscarActualizar_clicked()
 {
    //Borra todas las filas
@@ -162,6 +165,102 @@ void MainWindow::on_btnBuscarActualizar_clicked()
    }
 }
 
+void MainWindow::on_btnSeleccionarActualizar_clicked()
+{
+    int seleccion = ui->tablaActualizar->currentRow();
+    if ( seleccion > -1){
+        //obtengo el nombre de la fila ha actualizar
+        NodoEvento *aux = listaEvento.getCabecera();
+        int fila = ui->tablaActualizar->currentRow();
+        QString nombre = ui->tablaActualizar->item(fila,0)->text();
+        QString direccion, tipo;
+        int aforo,piso;
+        float area,costo;
+        while(aux != NULL){
+            if (aux->getEvento().getNombre() == nombre){
+                area=aux->getEvento().getArea();
+                direccion=aux->getEvento().getDireccion();
+                aforo=aux->getEvento().getAforo();
+                costo=aux->getEvento().getCosto();
+                piso=aux->getEvento().getPiso();
+                tipo=aux->getEvento().getTipo();
+            }
+            aux =  aux->getSiguiente();
+        }
+        nombreAux = nombre;
+        ui->direccionActualizar->setText(direccion);
+        ui->aforoActualizar->setText(QString::number(aforo));
+        ui->nombreActualizar->setText(nombre);
+        ui->costoActualizar->setText(QString::number(costo));
+        ui->pisoActualizar->setText(QString::number(piso));
+        ui->areaActualizar->setText(QString::number(area));
+        ui->tipoEventoActualizar->setCurrentText(tipo);
+
+        ui->tipoEventoActualizar->setEnabled(true);
+        ui->direccionActualizar->setEnabled(true);
+        ui->aforoActualizar->setEnabled(true);
+        ui->nombreActualizar->setEnabled(true);
+        ui->costoActualizar->setEnabled(true);
+        ui->pisoActualizar->setEnabled(true);
+        ui->areaActualizar->setEnabled(true);
+        ui->btnActualizar->setEnabled(true);
+
+    }else {
+        QMessageBox::warning(this, "", "Seleccione un evento");
+   }
+}
+
+void MainWindow::on_btnActualizar_clicked()
+{
+   //obtengo los datos de la interfas actualizar
+   QString tipo = ui->tipoEventoActualizar->itemText(ui->tipoEventoActualizar->currentIndex());
+   QString nombre = ui->nombreActualizar->text();
+   QString direccion = ui->direccionActualizar->text();
+   int aforo = ui->aforoActualizar->text().toInt();
+   float area = ui->areaActualizar->text().toFloat();
+   int piso = ui->pisoActualizar->text().toInt();
+   float costo = ui->costoActualizar->text().toInt();
+
+
+   //compruebo si todos los campos estan llenos
+   if (ui->nombreActualizar->text() != "" && ui->direccionActualizar->text() != ""
+       && ui->aforoActualizar->text() != "" && ui->areaActualizar->text() != ""
+       && ui->pisoActualizar->text() != "" && ui->costoActualizar->text() != ""){
+
+       Evento eventoAux(tipo, nombre, direccion, aforo, area, piso, costo);
+       int fila = ui->tablaActualizar->currentRow();
+       QString nombre = ui->tablaActualizar->item(fila,0)->text();
+       listaEvento.actualizarDatos(nombre, eventoAux);
+       QMessageBox::information(this, "", "Actualizado con éxito");
+
+   } else {
+       QMessageBox::warning(this, "", "Llene todos los campos");
+   }
+
+   ui->nombreActualizar->clear();
+   ui->direccionActualizar->clear();
+   ui->aforoActualizar->clear();
+   ui->areaActualizar->clear();
+   ui->pisoActualizar->clear();
+   ui->costoActualizar->clear();
+
+   ui->tipoEventoActualizar->setEnabled(false);
+   ui->direccionActualizar->setEnabled(false);
+   ui->aforoActualizar->setEnabled(false);
+   ui->nombreActualizar->setEnabled(false);
+   ui->costoActualizar->setEnabled(false);
+   ui->pisoActualizar->setEnabled(false);
+   ui->areaActualizar->setEnabled(false);
+   ui->btnActualizar->setEnabled(false);
+
+   //Borra todas las filas
+   int cant = ui->tablaActualizar->rowCount();
+   for (int y = cant - 1; y >= 0; y--) {
+       ui->tablaActualizar->removeRow(y);
+   }
+}
+
+//--------MODULO ALQUILAR-----------------
 void MainWindow::on_btnBuscarAlquilar_clicked()
 {
     //Borra todas las filas
@@ -283,97 +382,4 @@ void MainWindow::on_btnAlquilar_clicked()
     }
 }
 
-void MainWindow::on_btnSeleccionarActualizar_clicked()
-{
-    int seleccion = ui->tablaActualizar->currentRow();
-    if ( seleccion > -1){
-        //obtengo el nombre de la fila ha actualizar
-        NodoEvento *aux = listaEvento.getCabecera();
-        int fila = ui->tablaActualizar->currentRow();
-        QString nombre = ui->tablaActualizar->item(fila,0)->text();
-        QString direccion, tipo;
-        int aforo,piso;
-        float area,costo;
-        while(aux != NULL){
-            if (aux->getEvento().getNombre() == nombre){
-                area=aux->getEvento().getArea();
-                direccion=aux->getEvento().getDireccion();
-                aforo=aux->getEvento().getAforo();
-                costo=aux->getEvento().getCosto();
-                piso=aux->getEvento().getPiso();
-                tipo=aux->getEvento().getTipo();
-            }
-            aux =  aux->getSiguiente();
-        }
-        nombreAux = nombre;
-        ui->direccionActualizar->setText(direccion);
-        ui->aforoActualizar->setText(QString::number(aforo));
-        ui->nombreActualizar->setText(nombre);
-        ui->costoActualizar->setText(QString::number(costo));
-        ui->pisoActualizar->setText(QString::number(piso));
-        ui->areaActualizar->setText(QString::number(area));
-        ui->tipoEventoActualizar->setCurrentText(tipo);
 
-        ui->tipoEventoActualizar->setEnabled(true);
-        ui->direccionActualizar->setEnabled(true);
-        ui->aforoActualizar->setEnabled(true);
-        ui->nombreActualizar->setEnabled(true);
-        ui->costoActualizar->setEnabled(true);
-        ui->pisoActualizar->setEnabled(true);
-        ui->areaActualizar->setEnabled(true);
-        ui->btnActualizar->setEnabled(true);
-
-    }else {
-        QMessageBox::warning(this, "", "Seleccione un evento");
-   }
-}
-
-void MainWindow::on_btnActualizar_clicked()
-{
-   //obtengo los datos de la interfas actualizar
-   QString tipo = ui->tipoEventoActualizar->itemText(ui->tipoEventoActualizar->currentIndex());
-   QString nombre = ui->nombreActualizar->text();
-   QString direccion = ui->direccionActualizar->text();
-   int aforo = ui->aforoActualizar->text().toInt();
-   float area = ui->areaActualizar->text().toFloat();
-   int piso = ui->pisoActualizar->text().toInt();
-   float costo = ui->costoActualizar->text().toInt();
-
-
-   //compruebo si todos los campos estan llenos
-   if (ui->nombreActualizar->text() != "" && ui->direccionActualizar->text() != ""
-       && ui->aforoActualizar->text() != "" && ui->areaActualizar->text() != ""
-       && ui->pisoActualizar->text() != "" && ui->costoActualizar->text() != ""){
-
-       Evento eventoAux(tipo, nombre, direccion, aforo, area, piso, costo);
-       int fila = ui->tablaActualizar->currentRow();
-       QString nombre = ui->tablaActualizar->item(fila,0)->text();
-       listaEvento.actualizarDatos(nombre, eventoAux);
-       QMessageBox::information(this, "", "Actualizado con éxito");
-
-   } else {
-       QMessageBox::warning(this, "", "Llene todos los campos");
-   }
-
-   ui->nombreActualizar->clear();
-   ui->direccionActualizar->clear();
-   ui->aforoActualizar->clear();
-   ui->areaActualizar->clear();
-   ui->pisoActualizar->clear();
-   ui->costoActualizar->clear();
-
-   ui->tipoEventoActualizar->setEnabled(false);
-   ui->direccionActualizar->setEnabled(false);
-   ui->aforoActualizar->setEnabled(false);
-   ui->nombreActualizar->setEnabled(false);
-   ui->costoActualizar->setEnabled(false);
-   ui->pisoActualizar->setEnabled(false);
-   ui->areaActualizar->setEnabled(false);
-   ui->btnActualizar->setEnabled(false);
-
-   //Borra todas las filas
-   int cant = ui->tablaActualizar->rowCount();
-   for (int y = cant - 1; y >= 0; y--) {
-       ui->tablaActualizar->removeRow(y);
-   }
-}
