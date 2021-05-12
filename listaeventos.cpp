@@ -103,6 +103,20 @@ ListaEventos ListaEventos::buscarDisponibilidad(QString tipo, Disponibilidad dis
     return listaAux;
 }
 
+ListaEventos ListaEventos::buscarNoDisponibilidad(QString tipo, Disponibilidad disponibilidad){
+    ListaEventos listaAux;
+    NodoEvento *aux = cabecera;
+    while(aux != NULL){
+        if (aux->getEvento().getTipo() == tipo){
+            if(aux->getListaDisponibilidad().buscarDisponibilidad(disponibilidad) == false){
+                 listaAux.inserta(aux->getEvento());
+            }
+        }
+        aux =  aux->getSiguiente();
+    }
+    return listaAux;
+}
+
 void ListaEventos::operator=(ListaEventos listaEventos){
     NodoEvento *aux = listaEventos.getCabecera();
     while(aux != NULL){

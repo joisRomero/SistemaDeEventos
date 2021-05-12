@@ -15,12 +15,13 @@ MainWindow::MainWindow(QWidget *parent)
 
     //Titulos para la tabla en la pestania Alquilar
     QStringList titulosAlquilar;
-    titulosAlquilar << "Nombre" << "Aforo" << "Precio";
-    ui->tablaAlquilar->setColumnCount(3);
+    titulosAlquilar << "Nombre" << "Aforo" << "Precio" << "Estado";
+    ui->tablaAlquilar->setColumnCount(4);
     ui->tablaAlquilar->setHorizontalHeaderLabels(titulosAlquilar);
-    ui->tablaAlquilar->setColumnWidth(0, 465);
+    ui->tablaAlquilar->setColumnWidth(0, 360);
     ui->tablaAlquilar->setColumnWidth(1, 50);
     ui->tablaAlquilar->setColumnWidth(2, 50);
+    ui->tablaAlquilar->setColumnWidth(3, 90);
 
     //Titulos para la tabla en la pestania actualizar
     QStringList titulosActualizar;
@@ -121,7 +122,8 @@ void MainWindow::on_btnEliminar_clicked()
     if ( seleccion > -1){
         if (QMessageBox::question(this, "", "¿Estás seguro de eliminar?") == QMessageBox::Yes){
             //obtengo el nombre de la fila ha eliminar
-            QString nombre = ui->tablaEliminar->currentItem()->text();
+            int fila = ui->tablaEliminar->currentRow();
+            QString nombre = ui->tablaEliminar->item(fila,0)->text();
             listaEvento.eliminarPorNombre(nombre);
             QMessageBox::information(this, "", "Eliminado con éxito");
         }
@@ -169,6 +171,7 @@ void MainWindow::on_btnBuscarAlquilar_clicked()
     }
 
     ListaEventos listaAux;
+    ListaEventos listaAux2;
 
     //Obtengo los datos de la interfaz Alquilar
     QString tipo = ui->tipoEventoAlquilar->itemText(ui->tipoEventoAlquilar->currentIndex());
@@ -185,7 +188,8 @@ void MainWindow::on_btnBuscarAlquilar_clicked()
     } else {
         Disponibilidad auxDis(fecha, horaInicio, horaFin, horas);
         listaAux = listaEvento.buscarDisponibilidad(tipo,auxDis);
-        if(listaAux.getTotal() == 0){
+        listaAux2 = listaEvento.buscarNoDisponibilidad(tipo,auxDis);
+        if(listaAux.getTotal() == 0 && listaAux2.getTotal() == 0){
             QMessageBox::warning(this, "", "No se encontraron Eventos");
         } else {
             NodoEvento *aux = listaAux.getCabecera();
@@ -199,9 +203,29 @@ void MainWindow::on_btnBuscarAlquilar_clicked()
                                            new QTableWidgetItem(QString::number(aux->getEvento().getAforo())));
                 ui->tablaAlquilar->setItem(ui->tablaAlquilar->rowCount() - 1, 2,
                                            new QTableWidgetItem(QString::number(aux->getEvento().getCosto())));
+                ui->tablaAlquilar->setItem(ui->tablaAlquilar->rowCount() - 1, 3,
+                                           new QTableWidgetItem("Disponible"));
+                aux =  aux->getSiguiente();
+            }
+
+            aux = listaAux2.getCabecera();
+            while(aux != NULL){
+                //Creo una fila al final de la tabla
+                ui->tablaAlquilar->insertRow(ui->tablaAlquilar->rowCount());
+                //inserto elementos en la fila creada
+                ui->tablaAlquilar->setItem(ui->tablaAlquilar->rowCount() - 1, 0,
+                                           new QTableWidgetItem(aux->getEvento().getNombre()));
+                ui->tablaAlquilar->setItem(ui->tablaAlquilar->rowCount() - 1, 1,
+                                           new QTableWidgetItem(QString::number(aux->getEvento().getAforo())));
+                ui->tablaAlquilar->setItem(ui->tablaAlquilar->rowCount() - 1, 2,
+                                           new QTableWidgetItem(QString::number(aux->getEvento().getCosto())));
+                ui->tablaAlquilar->setItem(ui->tablaAlquilar->rowCount() - 1, 3,
+                                           new QTableWidgetItem("No disponible"));
                 aux =  aux->getSiguiente();
             }
         }
+
+
     }
 
 }
@@ -239,10 +263,16 @@ void MainWindow::on_btnAlquilar_clicked()
 
         Disponibilidad disponibilidad(fecha, horaInicio, horaFin, horas);
 
-        QString nombre = ui->tablaAlquilar->currentItem()->text();
-        listaEvento.insertarDisponibilidad(nombre, disponibilidad);
+        int fila = ui->tablaAlquilar->currentRow();
+        QString nombre = ui->tablaAlquilar->item(fila,0)->text();
+        QString estado = ui->tablaAlquilar->item(fila,3)->text();
 
-        QMessageBox::information(this, "", "Operacion terminada con exito");
+        if (estado == "Disponible"){
+            listaEvento.insertarDisponibilidad(nombre, disponibilidad);
+            QMessageBox::information(this, "", "Operacion terminada con exito");
+        } else {
+            QMessageBox::critical(this, "", "El evento seleccionado no esta disponible");
+        }
 
         //Borra todas las filas
         int cant = ui->tablaAlquilar->rowCount();
@@ -259,7 +289,8 @@ void MainWindow::on_btnSeleccionarActualizar_clicked()
     if ( seleccion > -1){
         //obtengo el nombre de la fila ha actualizar
         NodoEvento *aux = listaEvento.getCabecera();
-        QString nombre = ui->tablaActualizar->currentItem()->text();
+        int fila = ui->tablaActualizar->currentRow();
+        QString nombre = ui->tablaActualizar->item(fila,0)->text();
         QString direccion, tipo;
         int aforo,piso;
         float area,costo;
@@ -315,8 +346,9 @@ void MainWindow::on_btnActualizar_clicked()
        && ui->pisoActualizar->text() != "" && ui->costoActualizar->text() != ""){
 
        Evento eventoAux(tipo, nombre, direccion, aforo, area, piso, costo);
-       QString nombres = ui->tablaActualizar->currentItem()->text();
-       listaEvento.actualizarDatos(nombres, eventoAux);
+       int fila = ui->tablaActualizar->currentRow();
+       QString nombre = ui->tablaActualizar->item(fila,0)->text();
+       listaEvento.actualizarDatos(nombre, eventoAux);
        QMessageBox::information(this, "", "Actualizado con éxito");
 
    } else {

@@ -23,9 +23,11 @@ public:
     QStringList buscarPorTipo(QString tipo);
     void eliminarPorNombre(QString nombre);
     ListaEventos buscarDisponibilidad(QString tipo, Disponibilidad disponibilidad);
+    ListaEventos buscarNoDisponibilidad(QString tipo, Disponibilidad disponibilidad);
     void operator = (ListaEventos listaEventos);
     void insertarDisponibilidad(QString nombre, Disponibilidad disponibilidad);
     void actualizarDatos(QString nombre, Evento evento);
+
 
 };
 
