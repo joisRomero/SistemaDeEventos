@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "evento.h"
+#include "nodoevento.h"
 
 namespace Ui {
 class verMas;
@@ -15,7 +16,7 @@ class verMas : public QDialog
 public:
     explicit verMas(QWidget *parent = nullptr);
     ~verMas();
-    void mostrarEvento(Evento);
+    void mostrarEvento(NodoEvento*);
 
 private slots:
     void on_btnOk_clicked();

@@ -210,6 +210,7 @@ void MainWindow::on_btnVerMasAlquilar_clicked()
 {
     int i = ui->tablaAlquilar->currentRow();
     Evento evento;
+    NodoEvento *aux;
     if ( i > -1){
         verMas *ventana = new verMas;
         ventana->setModal(true);
@@ -217,7 +218,9 @@ void MainWindow::on_btnVerMasAlquilar_clicked()
         QString nombre = ui->tablaAlquilar->currentItem()->text();
 
         evento = listaEvento.getEventoPorNombre(nombre);
-        ventana->mostrarEvento(evento);
+
+        aux = listaEvento.getNodoEvento(nombre);
+        ventana->mostrarEvento(aux);
     }
 }
 

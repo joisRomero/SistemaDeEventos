@@ -14,14 +14,14 @@ verMas::~verMas()
     delete ui;
 }
 
-void verMas::mostrarEvento(Evento evento){
-    ui->labelAforo->setText(QString::number(evento.getAforo()));
-    ui->labelArea->setText(QString::number(evento.getArea()));
-    ui->labelPiso->setText(QString::number(evento.getPiso()));
-    ui->labelCosto->setText(QString::number(evento.getCosto()));
-    ui->labelDireccion->setText(evento.getDireccion());
-    ui->labelNombre->setText(evento.getNombre());
-    ui->labelTipo->setText(evento.getTipo());
+void verMas::mostrarEvento(NodoEvento *nodoEvento){
+    ui->labelAforo->setText(QString::number(nodoEvento->getEvento().getAforo()));
+    ui->labelArea->setText(QString::number(nodoEvento->getEvento().getArea()));
+    ui->labelPiso->setText(QString::number(nodoEvento->getEvento().getPiso()));
+    ui->labelCosto->setText(QString::number(nodoEvento->getEvento().getCosto()));
+    ui->labelDireccion->setText(nodoEvento->getEvento().getDireccion());
+    ui->labelNombre->setText(nodoEvento->getEvento().getNombre());
+    ui->labelTipo->setText(nodoEvento->getEvento().getTipo());
 }
 
 void verMas::on_btnOk_clicked()

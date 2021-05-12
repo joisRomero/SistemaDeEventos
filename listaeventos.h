@@ -16,6 +16,7 @@ public:
     int getTotal(){return total;}
     NodoEvento* getUltimo();
     Evento getEventoPorNombre(QString nombre);
+    NodoEvento* getNodoEvento(QString nombre);
 
     void inserta(const Evento&);
     void mostrarListaEventos();

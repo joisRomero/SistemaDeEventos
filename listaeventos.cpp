@@ -143,3 +143,14 @@ void ListaEventos::actualizarDatos(QString nombre, Evento evento){
     }
 }
 
+NodoEvento* ListaEventos::getNodoEvento(QString nombre){
+    NodoEvento *aux = cabecera;
+    NodoEvento *aux2;
+    while(aux != NULL){
+        if(aux->getEvento().getNombre() == nombre){
+            aux2 = aux;
+        }
+        aux = aux->getSiguiente();
+    }
+    return aux2;
+}
