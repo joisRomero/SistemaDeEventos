@@ -42,7 +42,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tipoEventoAgregar->addItems(items);
     ui->tipoEventoAlquilar->addItems(items);
     ui->tipoEventoProceso->addItems(items);
-
     //Hora y fecha alquilar
     ui->fechaAlquilar->setDate(QDate::currentDate());
     ui->horaAlquilar->setTime(QTime::currentTime());
@@ -297,7 +296,112 @@ void MainWindow::on_btnAlquilar_clicked()
     }
 }
 
+//--------MODULO REPORTES-----------------
+void MainWindow::on_btnMostrarTodo_clicked()
+{
+    //Borrar todas las filas
+    int cant = ui->tablaReportes->rowCount();
+    for (int y = cant - 1; y >= 0; y--) {
+        ui->tablaReportes->removeRow(y);
+    }
 
+    NodoEvento *aux = listaEvento.getCabecera();
+
+    if (aux != NULL){
+        //Titulos para la tabla en la pestania Alquilar
+        QStringList titulosReportes;
+
+
+        while (aux != NULL) {
+            titulosReportes  << "Nombre";
+            //Creo una fila al final de la tabla
+            ui->tablaReportes->insertRow(ui->tablaReportes->rowCount());
+
+            if (ui->cbTIpo->isChecked() || ui->cbAforo->isChecked() || ui->cbArea->isChecked()
+                    || ui->cbDireccin->isChecked() || ui->cbPiso->isChecked() || ui->cbPrecio->isChecked()){
+                if (ui->cbTIpo->isChecked() ){
+                    titulosReportes  << "Tipo";
+                    ui->tablaReportes->setColumnCount(titulosReportes.count());
+                    ui->tablaReportes->setHorizontalHeaderLabels(titulosReportes);
+                    ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, 0,
+                                              new QTableWidgetItem(aux->getEvento().getNombre()));
+                    ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, titulosReportes.indexOf("Tipo"),
+                                               new QTableWidgetItem(aux->getEvento().getTipo()));
+                }
+                if (ui->cbAforo->isChecked()){
+                    titulosReportes  << "Aforo";
+                    ui->tablaReportes->setColumnCount(titulosReportes.count());
+                    ui->tablaReportes->setHorizontalHeaderLabels(titulosReportes);
+                    ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, 0,
+                                              new QTableWidgetItem(aux->getEvento().getNombre()));
+                    ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, titulosReportes.indexOf("Aforo"),
+                                               new QTableWidgetItem(QString::number(aux->getEvento().getAforo())));
+                }
+                if (ui->cbArea->isChecked()){
+                    titulosReportes  << "Area";
+                    ui->tablaReportes->setColumnCount(titulosReportes.count());
+                    ui->tablaReportes->setHorizontalHeaderLabels(titulosReportes);
+                    ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, 0,
+                                               new QTableWidgetItem(aux->getEvento().getNombre()));
+                    ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, titulosReportes.indexOf("Area"),
+                                               new QTableWidgetItem(QString::number(aux->getEvento().getArea())));
+                }
+                if (ui->cbDireccin->isChecked()){
+                    titulosReportes  << "Dirección";
+                    ui->tablaReportes->setColumnCount(titulosReportes.count());
+                    ui->tablaReportes->setHorizontalHeaderLabels(titulosReportes);
+                    ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, 0,
+                                               new QTableWidgetItem(aux->getEvento().getNombre()));
+                    ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, titulosReportes.indexOf("Dirección"),
+                                               new QTableWidgetItem(aux->getEvento().getDireccion()));
+                }
+                if (ui->cbPiso->isChecked()){
+                    titulosReportes  << "Piso";
+                    ui->tablaReportes->setColumnCount(titulosReportes.count());
+                    ui->tablaReportes->setHorizontalHeaderLabels(titulosReportes);
+                    ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, 0,
+                                               new QTableWidgetItem(aux->getEvento().getNombre()));
+                    ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, titulosReportes.indexOf("Piso"),
+                                               new QTableWidgetItem(QString::number(aux->getEvento().getPiso())));
+                }
+                if (ui->cbPrecio->isChecked()){
+                    titulosReportes  << "Precio";
+                    ui->tablaReportes->setColumnCount(titulosReportes.count());
+                    ui->tablaReportes->setHorizontalHeaderLabels(titulosReportes);
+                    ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, 0,
+                                               new QTableWidgetItem(aux->getEvento().getNombre()));
+                    ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, titulosReportes.indexOf("Precio"),
+                                               new QTableWidgetItem(QString::number(aux->getEvento().getCosto())));
+                }
+
+            } else{
+                titulosReportes  << "Tipo" << "Dirección" << "Aforo" << "Area" << "Piso" << "Precio";
+                ui->tablaReportes->setColumnCount(titulosReportes.count());
+                ui->tablaReportes->setHorizontalHeaderLabels(titulosReportes);
+
+                ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, 0,
+                                          new QTableWidgetItem(aux->getEvento().getNombre()));
+                ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, titulosReportes.indexOf("Tipo"),
+                                           new QTableWidgetItem(aux->getEvento().getTipo()));
+                ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, titulosReportes.indexOf("Dirección"),
+                                          new QTableWidgetItem(aux->getEvento().getDireccion()));
+                ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, titulosReportes.indexOf("Aforo"),
+                                          new QTableWidgetItem(QString::number(aux->getEvento().getAforo())));
+                ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, titulosReportes.indexOf("Area"),
+                                          new QTableWidgetItem(QString::number(aux->getEvento().getArea())));
+                ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, titulosReportes.indexOf("Piso"),
+                                          new QTableWidgetItem(QString::number(aux->getEvento().getPiso())));
+                ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, titulosReportes.indexOf("Precio"),
+                                          new QTableWidgetItem(QString::number(aux->getEvento().getCosto())));
+            }
+            aux = aux->getSiguiente();
+        }
+    } else {
+        QMessageBox::information(this, "", "No hay eventos de ese tipo registrados");
+    }
+}
+
+//--------PESTAÑAS-----------------
 void MainWindow::on_actionAgregar_nuevo_Tipo_triggered()
 {
     QString nuevoItems ;
@@ -335,3 +439,5 @@ void MainWindow::on_actionAgregar_nuevo_Tipo_triggered()
         ui->tipoEventoProceso->removeItem(fila);
     }
 }
+
+

@@ -36,6 +36,8 @@ private slots:
 
     void on_actionAgregar_nuevo_Tipo_triggered();
 
+    void on_btnMostrarTodo_clicked();
+
 private:
     Ui::MainWindow *ui;
     ListaEventos listaEvento;
