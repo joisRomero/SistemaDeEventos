@@ -38,6 +38,8 @@ private slots:
 
     void on_btnMostrarTodo_clicked();
 
+    void on_actionAcerda_de_triggered();
+
 private:
     Ui::MainWindow *ui;
     ListaEventos listaEvento;

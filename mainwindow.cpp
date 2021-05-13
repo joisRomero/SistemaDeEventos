@@ -8,7 +8,7 @@
 #include "ui_verMas.h"
 #include "vntactualizar.h"
 #include "vtnagregaritems.h"
-
+#include "acercade.h"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -440,4 +440,8 @@ void MainWindow::on_actionAgregar_nuevo_Tipo_triggered()
     }
 }
 
-
+void MainWindow::on_actionAcerda_de_triggered()
+{
+    AcercaDe ventana(this);
+    ventana.exec();
+}

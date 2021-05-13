@@ -9,6 +9,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    acercade.cpp \
     disponibilidad.cpp \
     evento.cpp \
     listadisponibilidad.cpp \
@@ -21,6 +22,7 @@ SOURCES += \
     vtnagregaritems.cpp
 
 HEADERS += \
+    acercade.h \
     disponibilidad.h \
     evento.h \
     listadisponibilidad.h \
@@ -32,6 +34,7 @@ HEADERS += \
     vtnagregaritems.h
 
 FORMS += \
+    acercade.ui \
     mainwindow.ui \
     vermas.ui \
     vntactualizar.ui \
@@ -43,3 +46,6 @@ RC_ICONS = icono.ico
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    recursos.qrc

@@ -1447,11 +1447,23 @@
     </property>
     <addaction name="actionAgregar_nuevo_Tipo"/>
    </widget>
+   <widget class="QMenu" name="menuInformaci_n">
+    <property name="title">
+     <string>Información</string>
+    </property>
+    <addaction name="actionAcerda_de"/>
+   </widget>
    <addaction name="menuArchivo"/>
+   <addaction name="menuInformaci_n"/>
   </widget>
   <action name="actionAgregar_nuevo_Tipo">
    <property name="text">
     <string>Configurar Items</string>
+   </property>
+  </action>
+  <action name="actionAcerda_de">
+   <property name="text">
+    <string>Acerda de</string>
    </property>
   </action>
  </widget>
