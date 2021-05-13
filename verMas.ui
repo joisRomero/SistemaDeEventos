@@ -33,6 +33,12 @@
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
            <widget class="QLabel" name="label">
+            <property name="minimumSize">
+             <size>
+              <width>80</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="maximumSize">
              <size>
               <width>70</width>
@@ -71,6 +77,12 @@
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
            <widget class="QLabel" name="label_2">
+            <property name="minimumSize">
+             <size>
+              <width>80</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="maximumSize">
              <size>
               <width>70</width>
@@ -109,6 +121,12 @@
          <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
            <widget class="QLabel" name="label_3">
+            <property name="minimumSize">
+             <size>
+              <width>80</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="maximumSize">
              <size>
               <width>70</width>
@@ -147,6 +165,12 @@
          <layout class="QHBoxLayout" name="horizontalLayout_5">
           <item>
            <widget class="QLabel" name="label_4">
+            <property name="minimumSize">
+             <size>
+              <width>80</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="maximumSize">
              <size>
               <width>70</width>
@@ -185,6 +209,12 @@
          <layout class="QHBoxLayout" name="horizontalLayout_6">
           <item>
            <widget class="QLabel" name="label_5">
+            <property name="minimumSize">
+             <size>
+              <width>80</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="maximumSize">
              <size>
               <width>70</width>
@@ -223,6 +253,12 @@
          <layout class="QHBoxLayout" name="horizontalLayout_7">
           <item>
            <widget class="QLabel" name="label_6">
+            <property name="minimumSize">
+             <size>
+              <width>80</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="maximumSize">
              <size>
               <width>70</width>
@@ -261,6 +297,12 @@
          <layout class="QHBoxLayout" name="horizontalLayout_8">
           <item>
            <widget class="QLabel" name="label_7">
+            <property name="minimumSize">
+             <size>
+              <width>80</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="maximumSize">
              <size>
               <width>70</width>

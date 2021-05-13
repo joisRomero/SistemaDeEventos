@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
     titulosProcesos << "Nombre";
     ui->tablaProceso->setColumnCount(1);
     ui->tablaProceso->setHorizontalHeaderLabels(titulosProcesos);
-    ui->tablaProceso->setColumnWidth(0, 400);
+    ui->tablaProceso->setColumnWidth(0, 500);
 
     //items
     QStringList items;
@@ -69,8 +69,18 @@ void MainWindow::on_btnGuardarAgregar_clicked()
     if (ui->nombreAgregar->text() != "" && ui->direccionAgregar->text() != ""
         && ui->aforoAgregar->text() != "" && ui->areaAgregar->text() != ""
         && ui->pisoAgregar->text() != "" && ui->precioAgregar->text() != ""){
+
         Evento eventoAux(tipo, nombre, direccion, aforo, area, piso, costo);
-        listaEvento.inserta(eventoAux);
+        if (listaEvento.buscarPorNombre(eventoAux.getNombre())){
+            QMessageBox::warning(this, "", "El nombre ingresado ya está en uso");
+        } else if (eventoAux.getAforo() <= 0 || eventoAux.getArea() <= 0 ||
+                   eventoAux.getCosto() <= 0 || eventoAux.getPiso() <= 0 ||
+                   eventoAux.getPiso() >= 10){
+            QMessageBox::warning(this, "", "Ingrese un número válido");
+        }else {
+            listaEvento.inserta(eventoAux);
+        }
+
     } else {
         QMessageBox::warning(this, "", "Llene todos los campos");
     }
@@ -152,6 +162,9 @@ void MainWindow::on_btnActualizar_clicked()
         ventana.mostrar(evento);
         ventana.exec();
         evento = ventana.getEvento();
+        if (evento.getNombre() == "" || evento.getAforo() == 0 || evento.getArea() == 0
+                || evento.getCosto() == 0 || evento.getDireccion() == "" || evento.getPiso() == 0)
+            return;
         listaEvento.actualizarDatos(nombre, evento);
         QMessageBox::information(this, "", "Se actualizaron los datos");
     }else {

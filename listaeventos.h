@@ -27,7 +27,7 @@ public:
     void operator = (ListaEventos listaEventos);
     void insertarDisponibilidad(QString nombre, Disponibilidad disponibilidad);
     void actualizarDatos(QString nombre, Evento evento);
-
+    bool buscarPorNombre(QString nombre);
 
 };
 

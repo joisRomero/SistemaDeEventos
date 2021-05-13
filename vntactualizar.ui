@@ -7,20 +7,41 @@
     <x>0</x>
     <y>0</y>
     <width>502</width>
-    <height>307</height>
+    <height>215</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>502</width>
+    <height>215</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>502</width>
+    <height>215</height>
+   </size>
+  </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Actualizar</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_19">
+     <property name="spacing">
+      <number>0</number>
+     </property>
      <property name="topMargin">
-      <number>10</number>
+      <number>5</number>
      </property>
      <item>
       <widget class="QLabel" name="label_28">
+       <property name="minimumSize">
+        <size>
+         <width>90</width>
+         <height>0</height>
+        </size>
+       </property>
        <property name="font">
         <font>
          <pointsize>9</pointsize>
@@ -63,11 +84,20 @@
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_20">
+     <property name="spacing">
+      <number>0</number>
+     </property>
      <property name="topMargin">
-      <number>10</number>
+      <number>5</number>
      </property>
      <item>
       <widget class="QLabel" name="label_29">
+       <property name="minimumSize">
+        <size>
+         <width>90</width>
+         <height>0</height>
+        </size>
+       </property>
        <property name="font">
         <font>
          <pointsize>9</pointsize>
@@ -81,40 +111,36 @@
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer_34">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+      <widget class="QLineEdit" name="nombreActualizar">
+       <property name="enabled">
+        <bool>true</bool>
        </property>
-       <property name="sizeHint" stdset="0">
+       <property name="minimumSize">
         <size>
-         <width>40</width>
-         <height>20</height>
+         <width>0</width>
+         <height>23</height>
         </size>
        </property>
-      </spacer>
+      </widget>
      </item>
     </layout>
    </item>
    <item>
-    <widget class="QLineEdit" name="nombreActualizar">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>23</height>
-      </size>
-     </property>
-    </widget>
-   </item>
-   <item>
     <layout class="QHBoxLayout" name="horizontalLayout_21">
+     <property name="spacing">
+      <number>0</number>
+     </property>
      <property name="topMargin">
       <number>10</number>
      </property>
      <item>
       <widget class="QLabel" name="label_30">
+       <property name="minimumSize">
+        <size>
+         <width>90</width>
+         <height>0</height>
+        </size>
+       </property>
        <property name="font">
         <font>
          <pointsize>9</pointsize>
@@ -128,37 +154,24 @@
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer_35">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+      <widget class="QLineEdit" name="direccionActualizar">
+       <property name="enabled">
+        <bool>true</bool>
        </property>
-       <property name="sizeHint" stdset="0">
+       <property name="minimumSize">
         <size>
-         <width>40</width>
-         <height>20</height>
+         <width>0</width>
+         <height>23</height>
         </size>
        </property>
-      </spacer>
+      </widget>
      </item>
     </layout>
    </item>
    <item>
-    <widget class="QLineEdit" name="direccionActualizar">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>23</height>
-      </size>
-     </property>
-    </widget>
-   </item>
-   <item>
     <layout class="QHBoxLayout" name="horizontalLayout_17">
      <property name="topMargin">
-      <number>10</number>
+      <number>5</number>
      </property>
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_12">

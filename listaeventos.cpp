@@ -168,3 +168,14 @@ NodoEvento* ListaEventos::getNodoEvento(QString nombre){
     }
     return aux2;
 }
+
+bool ListaEventos::buscarPorNombre(QString nombre){
+    NodoEvento *aux = cabecera;
+    while(aux != NULL){
+        if (aux->getEvento().getNombre() == nombre){
+            return true;
+        }
+        aux = aux->getSiguiente();
+    }
+    return false;
+}

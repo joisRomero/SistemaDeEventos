@@ -51,15 +51,21 @@ void VntActualizar::on_btnActualizar_clicked()
        && ui->pisoActualizar->text() != "" && ui->costoActualizar->text() != ""){
 
        Evento eventoAux(tipo, nombre, direccion, aforo, area, piso, costo);
-       evento = eventoAux;
-       ui->nombreActualizar->clear();
-       ui->direccionActualizar->clear();
-       ui->aforoActualizar->clear();
-       ui->areaActualizar->clear();
-       ui->pisoActualizar->clear();
-       ui->costoActualizar->clear();
 
-       this->close();
+       if (eventoAux.getAforo() <= 0 || eventoAux.getArea() <= 0 ||
+               eventoAux.getCosto() <= 0 || eventoAux.getPiso() <= 0 ||
+               eventoAux.getPiso() >= 10){
+           QMessageBox::warning(this, "", "Ingrese un número válido");
+       } else {
+           evento = eventoAux;
+           this->close();
+           ui->nombreActualizar->clear();
+           ui->direccionActualizar->clear();
+           ui->aforoActualizar->clear();
+           ui->areaActualizar->clear();
+           ui->pisoActualizar->clear();
+           ui->costoActualizar->clear();
+       }
 
     } else {
        QMessageBox::warning(this, "", "Llene todos los campos");
