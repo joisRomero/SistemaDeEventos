@@ -1343,7 +1343,19 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuArchivo">
+    <property name="title">
+     <string>Editar</string>
+    </property>
+    <addaction name="actionAgregar_nuevo_Tipo"/>
+   </widget>
+   <addaction name="menuArchivo"/>
   </widget>
+  <action name="actionAgregar_nuevo_Tipo">
+   <property name="text">
+    <string>Configurar Items</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

@@ -34,6 +34,8 @@ private slots:
     void on_btnBuscarProceso_clicked();
 
 
+    void on_actionAgregar_nuevo_Tipo_triggered();
+
 private:
     Ui::MainWindow *ui;
     ListaEventos listaEvento;

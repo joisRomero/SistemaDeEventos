@@ -7,6 +7,7 @@
 #include "vermas.h"
 #include "ui_verMas.h"
 #include "vntactualizar.h"
+#include "vtnagregaritems.h"
 
 
 
@@ -38,7 +39,6 @@ MainWindow::MainWindow(QWidget *parent)
     items << "Auditorio" << "Cancha deportiva" << "Centro de esparcimiento"
           << "Estadio" << "Laboratorio" << "Sala de conferencia" << "Sala de cómputo"
           << "Salón de baile" << "Salón multimedia";
-
     ui->tipoEventoAgregar->addItems(items);
     ui->tipoEventoAlquilar->addItems(items);
     ui->tipoEventoProceso->addItems(items);
@@ -298,5 +298,40 @@ void MainWindow::on_btnAlquilar_clicked()
 }
 
 
+void MainWindow::on_actionAgregar_nuevo_Tipo_triggered()
+{
+    QString nuevoItems ;
+    QString itemAux;
+    QStringList items;
+    QStringList itemsAux;
+    int fila, accion;
+    //obtengo todos los items
+    for (int i = 0; i < ui->tipoEventoAgregar->count(); i++) {
+        itemAux = ui->tipoEventoAgregar->itemText(i);
+        itemsAux << itemAux;
+    }
+    VtnAgregarItems ventana(this);
+    ventana.mostrar(itemsAux);
+    ventana.exec();
+    nuevoItems = ventana.getItem();
+    fila = ventana.getFila();
+    accion = ventana.getAccion();
+    if (nuevoItems != "" && accion == 0){
+        items << nuevoItems;
+        ui->tipoEventoAgregar->addItems(items);
+        ui->tipoEventoAlquilar->addItems(items);
+        ui->tipoEventoProceso->addItems(items);
+    }
 
+    if (fila >= 0 && accion == 1 && nuevoItems != ""){
+        ui->tipoEventoAgregar->setItemText(fila, nuevoItems);
+        ui->tipoEventoAlquilar->setItemText(fila, nuevoItems);
+        ui->tipoEventoProceso->setItemText(fila, nuevoItems);
+    }
 
+    if (fila >= 0 && accion == 2){
+        ui->tipoEventoAgregar->removeItem(fila);
+        ui->tipoEventoAlquilar->removeItem(fila);
+        ui->tipoEventoProceso->removeItem(fila);
+    }
+}
