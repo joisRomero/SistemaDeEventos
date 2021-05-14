@@ -25,9 +25,9 @@ void verMas::mostrarEvento(NodoEvento *auxNodoEvento){
 
     //Group Box Derecha: EVENTOS
     //Borra todas las filas
-    int cant = ui->tablaEventosVerMas->rowCount();
-    for (int y = cant - 1; y >= 0; y--) {
-        ui->tablaEventosVerMas->removeRow(y);
+    int filas = ui->tablaEventosVerMas->rowCount();
+    for (int i = filas - 1; i >= 0; i--) {
+        ui->tablaEventosVerMas->removeRow(i);
     }
 
     QString dia, mes, anio, horaInicio, minutosInicio, horaFin, minutosFin;
@@ -55,6 +55,8 @@ void verMas::mostrarEvento(NodoEvento *auxNodoEvento){
         ui->tablaEventosVerMas->setItem(ui->tablaEventosVerMas->rowCount() -1, 0, new QTableWidgetItem(fecha));
         ui->tablaEventosVerMas->setItem(ui->tablaEventosVerMas->rowCount() -1, 1, new QTableWidgetItem(horaCompletaInicio));
         ui->tablaEventosVerMas->setItem(ui->tablaEventosVerMas->rowCount() -1, 2, new QTableWidgetItem(horaCompletaFin));
+        ui->tablaEventosVerMas->setItem(ui->tablaEventosVerMas->rowCount() -1, 3,
+                                        new QTableWidgetItem(QString::number(auxNodoEvento->getListaDisponibilidad().getDisponibilidad()[i].getHoras())));
     }
 }
 

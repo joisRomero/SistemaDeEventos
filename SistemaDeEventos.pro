@@ -19,6 +19,7 @@ SOURCES += \
     nodoevento.cpp \
     vermas.cpp \
     vntactualizar.cpp \
+    vntvertodo.cpp \
     vtnagregaritems.cpp
 
 HEADERS += \
@@ -31,6 +32,7 @@ HEADERS += \
     nodoevento.h \
     vermas.h \
     vntactualizar.h \
+    vntvertodo.h \
     vtnagregaritems.h
 
 FORMS += \
@@ -38,6 +40,7 @@ FORMS += \
     mainwindow.ui \
     vermas.ui \
     vntactualizar.ui \
+    vntvertodo.ui \
     vtnagregaritems.ui
 
 RC_ICONS = icono.ico

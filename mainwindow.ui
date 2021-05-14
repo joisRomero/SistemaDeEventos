@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>677</width>
+    <width>644</width>
     <height>653</height>
    </rect>
   </property>
@@ -581,6 +581,12 @@
                  <pointsize>10</pointsize>
                 </font>
                </property>
+               <property name="calendarPopup">
+                <bool>true</bool>
+               </property>
+               <property name="currentSectionIndex">
+                <number>0</number>
+               </property>
               </widget>
              </item>
              <item>
@@ -622,6 +628,40 @@
                 <font>
                  <pointsize>9</pointsize>
                 </font>
+               </property>
+               <property name="wrapping">
+                <bool>false</bool>
+               </property>
+               <property name="frame">
+                <bool>true</bool>
+               </property>
+               <property name="readOnly">
+                <bool>false</bool>
+               </property>
+               <property name="buttonSymbols">
+                <enum>QAbstractSpinBox::UpDownArrows</enum>
+               </property>
+               <property name="specialValueText">
+                <string/>
+               </property>
+               <property name="keyboardTracking">
+                <bool>false</bool>
+               </property>
+               <property name="showGroupSeparator" stdset="0">
+                <bool>false</bool>
+               </property>
+               <property name="displayFormat">
+                <string>hh:mm AP</string>
+               </property>
+               <property name="calendarPopup">
+                <bool>true</bool>
+               </property>
+               <property name="time">
+                <time>
+                 <hour>0</hour>
+                 <minute>0</minute>
+                 <second>0</second>
+                </time>
                </property>
               </widget>
              </item>
@@ -701,7 +741,7 @@
                 </font>
                </property>
                <property name="text">
-                <string>BUSCAR</string>
+                <string>Buscar</string>
                </property>
               </widget>
              </item>
@@ -772,7 +812,7 @@
                 </font>
                </property>
                <property name="text">
-                <string>VER MAS</string>
+                <string>Ver mas</string>
                </property>
               </widget>
              </item>
@@ -805,7 +845,7 @@
                 </font>
                </property>
                <property name="text">
-                <string>ALQUILAR</string>
+                <string>Alquilar</string>
                </property>
               </widget>
              </item>
@@ -1168,7 +1208,7 @@
                 </font>
                </property>
                <property name="text">
-                <string>GUARDAR</string>
+                <string>Guardar</string>
                </property>
               </widget>
              </item>
@@ -1260,7 +1300,7 @@
                 </font>
                </property>
                <property name="text">
-                <string>BUSCAR</string>
+                <string>Buscar</string>
                </property>
               </widget>
              </item>
@@ -1295,7 +1335,7 @@
                    </font>
                   </property>
                   <property name="text">
-                   <string>ACTUALIZAR</string>
+                   <string>Actualizar</string>
                   </property>
                  </widget>
                 </item>
@@ -1315,7 +1355,7 @@
                    </font>
                   </property>
                   <property name="text">
-                   <string>ELIMINAR</string>
+                   <string>Eliminar</string>
                   </property>
                  </widget>
                 </item>
@@ -1333,11 +1373,11 @@
        <attribute name="title">
         <string>REPORTES</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_13">
+       <layout class="QVBoxLayout" name="verticalLayout_15">
         <item>
          <widget class="QGroupBox" name="groupBox_6">
           <property name="title">
-           <string>Mostrar</string>
+           <string>Lugares</string>
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_11">
            <item>
@@ -1423,7 +1463,159 @@
          </widget>
         </item>
         <item>
-         <widget class="QTableWidget" name="tablaReportes"/>
+         <widget class="QGroupBox" name="groupBox_7">
+          <property name="title">
+           <string>Eventos</string>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_16">
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_13">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_15">
+               <item>
+                <widget class="QCheckBox" name="cbTipoEventos">
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QComboBox" name="tipoEventoReporte">
+                 <property name="minimumSize">
+                  <size>
+                   <width>200</width>
+                   <height>24</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="Line" name="line">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="cbFecha">
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QDateEdit" name="fechaReportes">
+                 <property name="wrapping">
+                  <bool>false</bool>
+                 </property>
+                 <property name="frame">
+                  <bool>true</bool>
+                 </property>
+                 <property name="buttonSymbols">
+                  <enum>QAbstractSpinBox::UpDownArrows</enum>
+                 </property>
+                 <property name="correctionMode">
+                  <enum>QAbstractSpinBox::CorrectToPreviousValue</enum>
+                 </property>
+                 <property name="maximumDateTime">
+                  <datetime>
+                   <hour>23</hour>
+                   <minute>59</minute>
+                   <second>59</second>
+                   <year>9999</year>
+                   <month>12</month>
+                   <day>31</day>
+                  </datetime>
+                 </property>
+                 <property name="calendarPopup">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_11">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btnMostrarTodoEventos">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>27</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Mostrar</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="groupBox_8">
+          <property name="title">
+           <string>Resultados</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_14">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_14">
+             <item>
+              <spacer name="horizontalSpacer_17">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnVerTodo">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>27</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Ver todo</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QTableWidget" name="tablaReportes">
+             <property name="midLineWidth">
+              <number>0</number>
+             </property>
+             <property name="dragEnabled">
+              <bool>false</bool>
+             </property>
+             <property name="alternatingRowColors">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -1437,7 +1629,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>677</width>
+     <width>644</width>
      <height>21</height>
     </rect>
    </property>
@@ -1458,12 +1650,12 @@
   </widget>
   <action name="actionAgregar_nuevo_Tipo">
    <property name="text">
-    <string>Configurar Items</string>
+    <string>Configurar Tipo</string>
    </property>
   </action>
   <action name="actionAcerda_de">
    <property name="text">
-    <string>Acerda de</string>
+    <string>Acerca de</string>
    </property>
   </action>
  </widget>

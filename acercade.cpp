@@ -6,6 +6,8 @@ AcercaDe::AcercaDe(QWidget *parent) :
     ui(new Ui::AcercaDe)
 {
     ui->setupUi(this);
+    ui->link->setText("<a href='https://github.com/joisRomero/SistemaDeEventos'>https://github.com/joisRomero/SistemaDeEventos</a>");
+    ui->link->setOpenExternalLinks(true);
 }
 
 AcercaDe::~AcercaDe()

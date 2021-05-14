@@ -33,12 +33,15 @@ private slots:
 
     void on_btnBuscarProceso_clicked();
 
-
     void on_actionAgregar_nuevo_Tipo_triggered();
 
     void on_btnMostrarTodo_clicked();
 
     void on_actionAcerda_de_triggered();
+
+    void on_btnMostrarTodoEventos_clicked();
+
+    void on_btnVerTodo_clicked();
 
 private:
     Ui::MainWindow *ui;

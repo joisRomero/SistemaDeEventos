@@ -9,6 +9,7 @@
 #include "vntactualizar.h"
 #include "vtnagregaritems.h"
 #include "acercade.h"
+#include "vntvertodo.h"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -42,9 +43,14 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tipoEventoAgregar->addItems(items);
     ui->tipoEventoAlquilar->addItems(items);
     ui->tipoEventoProceso->addItems(items);
+    ui->tipoEventoReporte->addItems(items);
+
     //Hora y fecha alquilar
     ui->fechaAlquilar->setDate(QDate::currentDate());
     ui->horaAlquilar->setTime(QTime::currentTime());
+
+    //fecha reportes
+    ui->fechaReportes->setDate(QDate::currentDate());
 }
 
 MainWindow::~MainWindow()
@@ -96,9 +102,9 @@ void MainWindow::on_btnGuardarAgregar_clicked()
 void MainWindow::on_btnBuscarProceso_clicked()
 {
     //Borrar todas las filas
-    int cant = ui->tablaProceso->rowCount();
-    for (int y = cant - 1; y >= 0; y--) {
-        ui->tablaProceso->removeRow(y);
+    int filas = ui->tablaProceso->rowCount();
+    for (int i = filas - 1; i >= 0; i--) {
+        ui->tablaProceso->removeRow(i);
     }
 
     QString tipo = ui->tipoEventoProceso->itemText(ui->tipoEventoProceso->currentIndex());
@@ -141,9 +147,9 @@ void MainWindow::on_btnEliminar_clicked()
     }
 
     //Borra todas las filas
-    int cant = ui->tablaProceso->rowCount();
-    for (int y = cant - 1; y >= 0; y--) {
-        ui->tablaProceso->removeRow(y);
+    int filas = ui->tablaProceso->rowCount();
+    for (int i = filas - 1; i >= 0; i--) {
+        ui->tablaProceso->removeRow(i);
     }
 }
 
@@ -151,9 +157,9 @@ void MainWindow::on_btnEliminar_clicked()
 
 void MainWindow::on_btnActualizar_clicked()
 {
-    int i = ui->tablaProceso->currentRow();
+    int seleccion = ui->tablaProceso->currentRow();
     Evento evento;
-    if ( i > -1){
+    if ( seleccion > -1){
         int fila = ui->tablaProceso->currentRow();
         QString nombre = ui->tablaProceso->item(fila,0)->text();
         evento = listaEvento.getEventoPorNombre(nombre);
@@ -170,9 +176,9 @@ void MainWindow::on_btnActualizar_clicked()
         QMessageBox::warning(this, "", "Seleccione un evento");
     }
     //Borra todas las filas
-    int cant = ui->tablaProceso->rowCount();
-    for (int y = cant - 1; y >= 0; y--) {
-        ui->tablaProceso->removeRow(y);
+    int filas = ui->tablaProceso->rowCount();
+    for (int i = filas - 1; i >= 0; i--) {
+        ui->tablaProceso->removeRow(i);
     }
 }
 
@@ -180,9 +186,9 @@ void MainWindow::on_btnActualizar_clicked()
 void MainWindow::on_btnBuscarAlquilar_clicked()
 {
     //Borra todas las filas
-    int cant = ui->tablaAlquilar->rowCount();
-    for (int y = cant - 1; y >= 0; y--) {
-        ui->tablaAlquilar->removeRow(y);
+    int filas = ui->tablaAlquilar->rowCount();
+    for (int i = filas - 1; i >= 0; i--) {
+        ui->tablaAlquilar->removeRow(i);
     }
 
     ListaEventos listaAux;
@@ -239,17 +245,14 @@ void MainWindow::on_btnBuscarAlquilar_clicked()
                 aux =  aux->getSiguiente();
             }
         }
-
-
     }
-
 }
 
 void MainWindow::on_btnVerMasAlquilar_clicked()
 {
-    int i = ui->tablaAlquilar->currentRow();
+    int seleccion = ui->tablaAlquilar->currentRow();
     NodoEvento *auxNodoEvento;
-    if ( i > -1){
+    if ( seleccion > -1){
         verMas *ventana = new verMas;
         ventana->setModal(true);
         ventana->show();
@@ -264,9 +267,9 @@ void MainWindow::on_btnVerMasAlquilar_clicked()
 
 void MainWindow::on_btnAlquilar_clicked()
 {
-    int i = ui->tablaAlquilar->currentRow();
+    int seleccion = ui->tablaAlquilar->currentRow();
 
-    if ( i > -1){
+    if ( seleccion > -1){
         //Obtengo los datos de la interfaz Alquilar
         QString tipo = ui->tipoEventoAlquilar->itemText(ui->tipoEventoAlquilar->currentIndex());
         QDate fecha = ui->fechaAlquilar->date();
@@ -288,9 +291,9 @@ void MainWindow::on_btnAlquilar_clicked()
         }
 
         //Borra todas las filas
-        int cant = ui->tablaAlquilar->rowCount();
-        for (int y = cant - 1; y >= 0; y--) {
-            ui->tablaAlquilar->removeRow(y);
+        int filas = ui->tablaAlquilar->rowCount();
+        for (int i = filas - 1; i >= 0; i--) {
+            ui->tablaAlquilar->removeRow(i);
         }
 
     }
@@ -300,9 +303,9 @@ void MainWindow::on_btnAlquilar_clicked()
 void MainWindow::on_btnMostrarTodo_clicked()
 {
     //Borrar todas las filas
-    int cant = ui->tablaReportes->rowCount();
-    for (int y = cant - 1; y >= 0; y--) {
-        ui->tablaReportes->removeRow(y);
+    int filas = ui->tablaReportes->rowCount();
+    for (int i = filas - 1; i >= 0; i--) {
+        ui->tablaReportes->removeRow(i);
     }
 
     NodoEvento *aux = listaEvento.getCabecera();
@@ -311,7 +314,7 @@ void MainWindow::on_btnMostrarTodo_clicked()
         //Titulos para la tabla en la pestania Alquilar
         QStringList titulosReportes;
 
-
+        int validacion = 0;
         while (aux != NULL) {
             titulosReportes  << "Nombre";
             //Creo una fila al final de la tabla
@@ -320,64 +323,78 @@ void MainWindow::on_btnMostrarTodo_clicked()
             if (ui->cbTIpo->isChecked() || ui->cbAforo->isChecked() || ui->cbArea->isChecked()
                     || ui->cbDireccin->isChecked() || ui->cbPiso->isChecked() || ui->cbPrecio->isChecked()){
                 if (ui->cbTIpo->isChecked() ){
-                    titulosReportes  << "Tipo";
-                    ui->tablaReportes->setColumnCount(titulosReportes.count());
-                    ui->tablaReportes->setHorizontalHeaderLabels(titulosReportes);
+                    if (validacion == 0){
+                        titulosReportes  << "Tipo";
+                        ui->tablaReportes->setColumnCount(titulosReportes.count());
+                        ui->tablaReportes->setHorizontalHeaderLabels(titulosReportes);
+                    }
                     ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, 0,
                                               new QTableWidgetItem(aux->getEvento().getNombre()));
                     ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, titulosReportes.indexOf("Tipo"),
                                                new QTableWidgetItem(aux->getEvento().getTipo()));
                 }
                 if (ui->cbAforo->isChecked()){
-                    titulosReportes  << "Aforo";
-                    ui->tablaReportes->setColumnCount(titulosReportes.count());
-                    ui->tablaReportes->setHorizontalHeaderLabels(titulosReportes);
+                    if (validacion == 0){
+                        titulosReportes  << "Aforo";
+                        ui->tablaReportes->setColumnCount(titulosReportes.count());
+                        ui->tablaReportes->setHorizontalHeaderLabels(titulosReportes);
+                    }
                     ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, 0,
                                               new QTableWidgetItem(aux->getEvento().getNombre()));
                     ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, titulosReportes.indexOf("Aforo"),
                                                new QTableWidgetItem(QString::number(aux->getEvento().getAforo())));
                 }
                 if (ui->cbArea->isChecked()){
-                    titulosReportes  << "Area";
-                    ui->tablaReportes->setColumnCount(titulosReportes.count());
-                    ui->tablaReportes->setHorizontalHeaderLabels(titulosReportes);
+                    if (validacion == 0){
+                        titulosReportes  << "Area";
+                        ui->tablaReportes->setColumnCount(titulosReportes.count());
+                        ui->tablaReportes->setHorizontalHeaderLabels(titulosReportes);
+                    }
                     ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, 0,
                                                new QTableWidgetItem(aux->getEvento().getNombre()));
                     ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, titulosReportes.indexOf("Area"),
                                                new QTableWidgetItem(QString::number(aux->getEvento().getArea())));
                 }
                 if (ui->cbDireccin->isChecked()){
-                    titulosReportes  << "Dirección";
-                    ui->tablaReportes->setColumnCount(titulosReportes.count());
-                    ui->tablaReportes->setHorizontalHeaderLabels(titulosReportes);
+                    if (validacion == 0){
+                        titulosReportes  << "Dirección";
+                        ui->tablaReportes->setColumnCount(titulosReportes.count());
+                        ui->tablaReportes->setHorizontalHeaderLabels(titulosReportes);
+                    }
                     ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, 0,
                                                new QTableWidgetItem(aux->getEvento().getNombre()));
                     ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, titulosReportes.indexOf("Dirección"),
                                                new QTableWidgetItem(aux->getEvento().getDireccion()));
                 }
                 if (ui->cbPiso->isChecked()){
-                    titulosReportes  << "Piso";
-                    ui->tablaReportes->setColumnCount(titulosReportes.count());
-                    ui->tablaReportes->setHorizontalHeaderLabels(titulosReportes);
+                    if (validacion == 0){
+                        titulosReportes  << "Piso";
+                        ui->tablaReportes->setColumnCount(titulosReportes.count());
+                        ui->tablaReportes->setHorizontalHeaderLabels(titulosReportes);
+                    }
                     ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, 0,
                                                new QTableWidgetItem(aux->getEvento().getNombre()));
                     ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, titulosReportes.indexOf("Piso"),
                                                new QTableWidgetItem(QString::number(aux->getEvento().getPiso())));
                 }
                 if (ui->cbPrecio->isChecked()){
-                    titulosReportes  << "Precio";
-                    ui->tablaReportes->setColumnCount(titulosReportes.count());
-                    ui->tablaReportes->setHorizontalHeaderLabels(titulosReportes);
+                    if (validacion == 0){
+                        titulosReportes  << "Precio";
+                        ui->tablaReportes->setColumnCount(titulosReportes.count());
+                        ui->tablaReportes->setHorizontalHeaderLabels(titulosReportes);
+                    }
                     ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, 0,
                                                new QTableWidgetItem(aux->getEvento().getNombre()));
                     ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, titulosReportes.indexOf("Precio"),
                                                new QTableWidgetItem(QString::number(aux->getEvento().getCosto())));
                 }
-
+                validacion++;
             } else{
-                titulosReportes  << "Tipo" << "Dirección" << "Aforo" << "Area" << "Piso" << "Precio";
-                ui->tablaReportes->setColumnCount(titulosReportes.count());
-                ui->tablaReportes->setHorizontalHeaderLabels(titulosReportes);
+                if (validacion == 0){
+                    titulosReportes  << "Tipo" << "Dirección" << "Aforo" << "Area" << "Piso" << "Precio";
+                    ui->tablaReportes->setColumnCount(titulosReportes.count());
+                    ui->tablaReportes->setHorizontalHeaderLabels(titulosReportes);
+                }
 
                 ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, 0,
                                           new QTableWidgetItem(aux->getEvento().getNombre()));
@@ -394,12 +411,84 @@ void MainWindow::on_btnMostrarTodo_clicked()
                 ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, titulosReportes.indexOf("Precio"),
                                           new QTableWidgetItem(QString::number(aux->getEvento().getCosto())));
             }
+            validacion++;
             aux = aux->getSiguiente();
         }
     } else {
-        QMessageBox::information(this, "", "No hay eventos de ese tipo registrados");
+        QMessageBox::information(this, "", "No hay eventos registrados");
     }
 }
+
+void MainWindow::on_btnMostrarTodoEventos_clicked()
+{
+    //Borrar todas las filas
+    int filas = ui->tablaReportes->rowCount();
+    for (int i = filas - 1; i >= 0; i--) {
+        ui->tablaReportes->removeRow(i);
+    }
+
+    QStringList titulosReportes;
+    titulosReportes << "Tipo" << "Nombre" << "Total de horas" << "Dinero recaudado";
+    ui->tablaReportes->setColumnCount(titulosReportes.count());
+    ui->tablaReportes->setHorizontalHeaderLabels(titulosReportes);
+
+    QString tipo = ui->tipoEventoReporte->itemText(ui->tipoEventoReporte->currentIndex());
+    QDate fecha = ui->fechaReportes->date();
+
+    int totalHoras;
+    float dineroRecaudado;
+
+    NodoEvento *aux = listaEvento.getCabecera();
+    while (aux != NULL) {
+        totalHoras = 0;
+        for (int i = 0; i < aux->getListaDisponibilidad().getN(); i++){
+            if (ui->cbFecha->isChecked()){
+                if (fecha <= aux->getListaDisponibilidad().getDisponibilidad()[i].getFechaEvento()){
+                    totalHoras += aux->getListaDisponibilidad().getDisponibilidad()[i].getHoras();
+                }
+            } else {
+                totalHoras += aux->getListaDisponibilidad().getDisponibilidad()[i].getHoras();
+            }
+        }
+
+        dineroRecaudado = totalHoras * aux->getEvento().getCosto();
+
+        if (ui->cbTipoEventos->isChecked() == true && tipo != aux->getEvento().getTipo()){
+            aux = aux->getSiguiente();
+            continue;
+        }
+
+        //Creo una fila al final de la tabla
+        ui->tablaReportes->insertRow(ui->tablaReportes->rowCount());
+        //inserto elementos en la fila creada
+        ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, 0,
+                                   new QTableWidgetItem(aux->getEvento().getTipo()));
+        ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, 1,
+                                   new QTableWidgetItem(aux->getEvento().getNombre()));
+        ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, 2,
+                                   new QTableWidgetItem(QString::number(totalHoras)));
+        ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, 3,
+                                   new QTableWidgetItem(QString::number(dineroRecaudado)));
+
+        aux = aux->getSiguiente();
+    }
+}
+
+void MainWindow::on_btnVerTodo_clicked()
+{
+    int seleccion = ui->tablaReportes->currentRow();
+    NodoEvento *auxNodoEvento;
+    if ( seleccion > -1){
+        int fila = ui->tablaReportes->currentRow();
+        QString nombre = ui->tablaReportes->item(fila,0)->text();
+        auxNodoEvento = listaEvento.getNodoEvento(nombre);
+        VntVerTodo *ventana = new VntVerTodo;
+        ventana->setModal(true);
+        ventana->mostrarEvento(auxNodoEvento);
+        ventana->show();
+    }
+}
+
 
 //--------PESTAÑAS-----------------
 void MainWindow::on_actionAgregar_nuevo_Tipo_triggered()
@@ -425,18 +514,21 @@ void MainWindow::on_actionAgregar_nuevo_Tipo_triggered()
         ui->tipoEventoAgregar->addItems(items);
         ui->tipoEventoAlquilar->addItems(items);
         ui->tipoEventoProceso->addItems(items);
+        ui->tipoEventoReporte->addItems(items);
     }
 
     if (fila >= 0 && accion == 1 && nuevoItems != ""){
         ui->tipoEventoAgregar->setItemText(fila, nuevoItems);
         ui->tipoEventoAlquilar->setItemText(fila, nuevoItems);
         ui->tipoEventoProceso->setItemText(fila, nuevoItems);
+        ui->tipoEventoReporte->setItemText(fila, nuevoItems);
     }
 
     if (fila >= 0 && accion == 2){
         ui->tipoEventoAgregar->removeItem(fila);
         ui->tipoEventoAlquilar->removeItem(fila);
         ui->tipoEventoProceso->removeItem(fila);
+        ui->tipoEventoReporte->removeItem(fila);
     }
 }
 
@@ -445,3 +537,6 @@ void MainWindow::on_actionAcerda_de_triggered()
     AcercaDe ventana(this);
     ventana.exec();
 }
+
+
+

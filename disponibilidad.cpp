@@ -1,5 +1,15 @@
 #include "disponibilidad.h"
 
+int Disponibilidad::getHoras() const
+{
+    return horas;
+}
+
+void Disponibilidad::setHoras(int value)
+{
+    horas = value;
+}
+
 Disponibilidad::Disponibilidad(){
     horas = 0;
 }

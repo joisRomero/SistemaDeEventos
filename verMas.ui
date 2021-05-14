@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>546</width>
+    <width>683</width>
     <height>294</height>
    </rect>
   </property>
@@ -375,6 +375,11 @@
           <column>
            <property name="text">
             <string>Hora Fin</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Total de horas</string>
            </property>
           </column>
          </widget>
