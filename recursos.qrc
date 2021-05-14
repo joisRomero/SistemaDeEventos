@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>icono.ico</file>
+        <file>lugares.txt</file>
     </qresource>
 </RCC>

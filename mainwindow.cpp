@@ -10,7 +10,8 @@
 #include "vtnagregaritems.h"
 #include "acercade.h"
 #include "vntvertodo.h"
-
+#include <stdio.h>
+#include <QFile>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -37,9 +38,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     //items
     QStringList items;
-    items << "Auditorio" << "Cancha deportiva" << "Centro de esparcimiento"
-          << "Estadio" << "Laboratorio" << "Sala de conferencia" << "Sala de cómputo"
-          << "Salón de baile" << "Salón multimedia";
+    items << "Auditorio" << "Cancha_deportiva" << "Centro_de_esparcimiento"
+          << "Estadio" << "Laboratorio" << "Sala_de_conferencia" << "Sala_de_cómputo"
+          << "Salón_de_baile" << "Salón_multimedia";
     ui->tipoEventoAgregar->addItems(items);
     ui->tipoEventoAlquilar->addItems(items);
     ui->tipoEventoProceso->addItems(items);
@@ -51,6 +52,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     //fecha reportes
     ui->fechaReportes->setDate(QDate::currentDate());
+
+    //cargo el archivos
+    cargarArchivo();
 }
 
 MainWindow::~MainWindow()
@@ -538,5 +542,57 @@ void MainWindow::on_actionAcerda_de_triggered()
     ventana.exec();
 }
 
+
+//--------ARCHIVO-----------------
+void MainWindow::cargarArchivo(){
+    QByteArray contenido;
+    QFile archivo;
+
+    QString linea;
+    QString palabra;
+    QStringList datos;
+
+    int i = 0;
+
+    Evento evento;
+
+    archivo.setFileName(":/lugares.txt");
+    if (!archivo.exists()){
+        qDebug() << "El no archivo existe";
+    }
+
+    archivo.open(QIODevice::ReadOnly | QIODevice::Text);
+    if(!archivo.isOpen()){
+        qDebug() << "el archivo no se ha podido abrir";
+    }
+
+    while (i < 10) {
+        contenido = archivo.readLine();
+        linea.clear();
+        datos.clear();
+        linea.append(contenido);
+        for (int i = 0; i < linea.length() - 1; i++) {
+            if (linea[i] == " "){
+                datos << palabra;
+                palabra.clear();
+            } else {
+                palabra.append(linea[i]);
+            }
+        }
+        datos << palabra;
+        palabra.clear();
+        i++;
+
+        evento.setTipo(datos[0]);
+        evento.setNombre(datos[1]);
+        evento.setDireccion(datos[2]);
+        evento.setAforo(datos[3].toInt());
+        evento.setArea(datos[4].toFloat());
+        evento.setPiso(datos[5].toInt());
+        evento.setCosto(datos[6].toFloat());
+        listaEvento.inserta(evento);
+    }
+    archivo.close();
+}
 
 

@@ -43,6 +43,8 @@ private slots:
 
     void on_btnVerTodo_clicked();
 
+    void cargarArchivo();
+
 private:
     Ui::MainWindow *ui;
     ListaEventos listaEvento;

@@ -1,0 +1,10 @@
+Auditorio Los_Heraldos Calle_Real_202 100 200 2 100
+Auditorio El_Guardián Calle_Huáscar_123 200 400 1 200
+Cancha_deportiva Assarat Calle_Patria_19 118 135 1 120
+Centro_de_esparcimiento El_Rancho Calle_Malambo_912 500 1000 1 500
+Estadio Gol Av_Las_Flores_5574 60000 7140 1 10000
+Laboratorio Átomo Calle_7_de_Junio_339 321 400 3 500
+Sala_de_conferencia Coferencia_feliz Av_San_Agustín 1000 500 2 650 
+Sala_de_cómputo Open_Source Av_Bolognesi_432 30 100 5 450
+Salón_de_baile EL_Bunker Calle_Los_Olivos_829 300 700 2 370
+Salón_multimedia EL_Fin Calle_Jorge_Chavez_340 200 450 4 370
