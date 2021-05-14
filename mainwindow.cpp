@@ -1,3 +1,10 @@
+/*
+    INTEGRANTES:
+        Romero Olivera José Luis
+        Gonzales Bocanegra José David
+        Chávez Alvites Jairo
+*/
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "evento.h"
