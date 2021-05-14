@@ -439,7 +439,7 @@ void MainWindow::on_btnMostrarTodoEventos_clicked()
     }
 
     QStringList titulosReportes;
-    titulosReportes << "Tipo" << "Nombre" << "Total de horas" << "Dinero recaudado";
+    titulosReportes << "Nombre" << "Tipo"  << "Total de horas" << "Dinero recaudado";
     ui->tablaReportes->setColumnCount(titulosReportes.count());
     ui->tablaReportes->setHorizontalHeaderLabels(titulosReportes);
 
@@ -473,9 +473,9 @@ void MainWindow::on_btnMostrarTodoEventos_clicked()
         ui->tablaReportes->insertRow(ui->tablaReportes->rowCount());
         //inserto elementos en la fila creada
         ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, 0,
-                                   new QTableWidgetItem(aux->getEvento().getTipo()));
-        ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, 1,
                                    new QTableWidgetItem(aux->getEvento().getNombre()));
+        ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, 1,
+                                   new QTableWidgetItem(aux->getEvento().getTipo()));
         ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, 2,
                                    new QTableWidgetItem(QString::number(totalHoras)));
         ui->tablaReportes->setItem(ui->tablaReportes->rowCount() - 1, 3,
